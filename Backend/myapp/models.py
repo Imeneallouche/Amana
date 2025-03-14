@@ -145,10 +145,20 @@ class Transaction(models.Model):
     escrow_release_conditions = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    completed_at = models.DateTimeField(null=True)
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     method = models.CharField(max_length=3, choices=Methods.choices)
     stage = models.IntegerField(choices=Stages.choices)
     metadata = JSONField()
+    beneficiary_proof = models.CharField(max_length=46, blank=True)
+    network = models.CharField(max_length=20)
+    impact_percentage = models.FloatField(default=0.0)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["donor", "status"]),
+            models.Index(fields=["tx_hash"]),
+        ]
 
     def save(self, *args, **kwargs):
         if not self.pk:  # Initial save
