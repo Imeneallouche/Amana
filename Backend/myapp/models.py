@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser,Group, Permission
+from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
 from django.db.models import JSONField
 
@@ -16,7 +16,9 @@ class User(AbstractUser):
     tfa_enabled = models.BooleanField(default=False)
     last_activity = models.DateTimeField(auto_now=True)
     groups = models.ManyToManyField(Group, related_name="custom_user_set")
-    user_permissions = models.ManyToManyField(Permission, related_name="custom_user_set")
+    user_permissions = models.ManyToManyField(
+        Permission, related_name="custom_user_set"
+    )
 
     class Meta:
         indexes = [
@@ -47,7 +49,7 @@ class NGOProfile(models.Model):
         ],
     )
     transparency_score = models.FloatField(default=0.0)
-    operational_regions = JSONField(default=list) 
+    operational_regions = JSONField(default=list)
     collaboration_network = models.ManyToManyField("self", through="NGOCollaboration")
 
 
@@ -118,15 +120,35 @@ class Transaction(models.Model):
         ("REFUNDED", "Refunded"),
     ]
 
+    class Stages(models.IntegerChoices):
+        INITIALIZED = 0
+        VALIDATED = 1
+        INCLUDED = 2
+        FINALIZED = 3
+
+    class Methods(models.TextChoices):
+        ETHEREUM = "ETH"
+        PAYSERA = "PSR"
+        BARIDIMOB = "BRM"
+        CCP = "CCP"
+
     mission = models.ForeignKey(Mission, on_delete=models.PROTECT)
-    donor = models.ForeignKey(User, on_delete=models.PROTECT)
-    amount = models.DecimalField(max_digits=20, decimal_places=2)
+    sender = models.ForeignKey(
+        "users.User", related_name="sent_txs", on_delete=models.PROTECT
+    )
+    receiver = models.ForeignKey(
+        "users.User", related_name="received_txs", on_delete=models.PROTECT
+    )
     tx_hash = models.CharField(max_length=66, unique=True)
     block_number = models.PositiveBigIntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     escrow_release_conditions = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    amount = models.DecimalField(max_digits=20, decimal_places=2)
+    method = models.CharField(max_length=3, choices=Methods.choices)
+    stage = models.IntegerField(choices=Stages.choices)
+    metadata = JSONField()
 
 
 class BeneficiaryRequest(models.Model):
@@ -167,7 +189,7 @@ class Feedback(models.Model):
     beneficiary = models.ForeignKey(PersonInNeedProfile, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField()
     testimonial = models.TextField()
-    media_hashes = JSONField(default=list) 
+    media_hashes = JSONField(default=list)
     tx_proof = models.CharField(max_length=66)  # Blockchain proof
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
