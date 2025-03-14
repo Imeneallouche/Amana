@@ -2,20 +2,18 @@ import React from "react";
 import logo from "../assets/logo.svg"; 
 import ong from '../assets/baraka.jpg';
 
-export default function ONGCard() {
-    const name = "El-Baraka";
-    const lorem = "El Baraka is an Algerian charity house dedicated to collecting donations for Palestine. Your support provides food, medical aid, and shelter to those in need.";
+export default function ONGCard({ name , description, image }) {
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg flex items-center gap-8 max-w-lg border">
+    <div className="bg-white p-6 rounded-2xl my-5 shadow-md flex items-center gap-8 max-w-lg border">
       {/* Logo */}
-      <img src={ong} alt="El-Baraka" className="w-24 h-24 object-contain" />
+      <img src={image} alt="El-Baraka" className="w-24 h-24 object-contain" />
 
       {/* Text Content */}
       <div className="flex-1">
         <h2 className="text-lg font-jakarta text-myblack font-semibold">{name}</h2>
         <p className="text-[#8A8A8A] font-jakarta text-sm line-clamp-3  overflow-hidden">
-          {lorem}
+          {description}
         </p>
 
         {/* Buttons with Hover Effects */}

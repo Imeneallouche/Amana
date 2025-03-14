@@ -1,31 +1,51 @@
 import React from "react";
-import logo from "../assets/logo.svg"; 
+import orphanImage from "../assets/bg.avif";
 
-export default function CharityCard() {
-    const name="El-Baraka";
-    const lorem="El Baraka is an Algerian charity house dedicated to collecting donations for Palestine. Your support provides food, medical aid, and  shelter to those in need.";
-  return (
-    <div className="bg-white p-6 rounded-2xl shadow-lg flex items-center gap-4 max-w-lg border">
-      {/* Logo */}
-      <img src={logo} alt="El-Baraka" className="w-20 h-20 object-contain" />
+export  function DonationCard({location , urgency , title , total , raised , image}) {
+    //Calculate progress percentage
+    const progress = (raised / total) * 100;
 
-      {/* Text Content */}
-      <div className="flex-1">
-        <h2 className="text-lg font-semibold">{name}</h2>
-        <p className="text-gray-600 text-sm">
-        {lorem}
+    return (
+    <div className="bg-white p-4 rounded-2xl shadow-lg max-w-xs border">
+      {/* Image */}
+      <img src={image} alt="Orphan Donation" className="w-full h-48 object-cover rounded-xl" />
+
+      {/* Content */}
+      <div className="mt-4">
+        <div className=" flex h-[50px] mb-3 line-clamp-2  overflow-hidden">
+        <h2 className="text-lg font-semibold font-jakarta  text-gray-900">{title}</h2>
+        </div>
+        {/* Location & Urgency */}
+        <p className="text-sm text-gray-600 mt-1">
+          <span className="font-medium font-jakarta text-gray-800">Location :</span> {location}
+        </p>
+        <p className="text-sm text-gray-600">
+          <span className="font-medium font-jakarta text-gray-800">Urgency :</span> {urgency}
         </p>
 
+        {/* Donation Progress */}
+        <div className="flex justify-between text-sm font-jakarta font-medium text-gray-700 mt-3">
+          <span>${raised.toLocaleString()}</span>
+          <span>${total.toLocaleString()}</span>
+        </div>
+        <div className="w-full bg-gray-200 h-2 rounded-full mt-1">
+          <div className="bg-green-600 h-2 rounded-full transition-all duration-500" 
+               style={{ width: `${progress}%` }}>
+          </div>
+        </div>
+
         {/* Buttons */}
-        <div className="mt-3 flex gap-2">
-          <button className="bg-green-600 text-white px-4 py-1.5 rounded-md text-sm font-medium">
-            Follow
+        <div className="mt-4 flex gap-2">
+          <button className="bg-green-800 text-white w-1/2 py-2 rounded-md text-sm font-medium transition duration-300 hover:bg-green-700 hover:scale-105">
+            Donate now
           </button>
-          <button className="border border-green-600 text-green-600 px-4 py-1.5 rounded-md text-sm font-medium">
-            View Profile
+          <button className="text-green-800 w-1/2 py-2 rounded-md text-sm font-medium transition duration-300 hover:bg-gray-100">
+            See detail
           </button>
         </div>
       </div>
     </div>
   );
 }
+
+export default DonationCard;
