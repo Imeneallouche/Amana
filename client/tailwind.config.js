@@ -11,6 +11,7 @@ export default {
         mywhite: "#F9F9F9",
         myblack: "#080808",
         mybeige: "#FFD599",
+        greeny: "#026F42",
       },
       fontFamily: {
         jakarta: ["Plus Jakarta Sans", "sans-serif"],
