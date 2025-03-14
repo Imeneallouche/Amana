@@ -150,6 +150,13 @@ class Transaction(models.Model):
     stage = models.IntegerField(choices=Stages.choices)
     metadata = JSONField()
 
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Initial save
+            self.stages_log = [
+                {"stage": self.Stage.INITIATED, "timestamp": self.created_at}
+            ]
+        super().save(*args, **kwargs)
+
 
 class BeneficiaryRequest(models.Model):
     STATUS_CHOICES = [
