@@ -54,3 +54,84 @@ def help_request_detail(request,pk):
     elif request.method== 'DELETE':
         help_request.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+@api_view(['GET', 'POST'])
+def ngo_list(request):
+    """
+    List all NGOs or create a new NGO
+    """
+    if request.method == 'GET':
+        ngos = NGO.objects.all()
+        serializer = NGOSerializer(ngos, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = NGOSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def ngo_detail(request, pk):
+    """
+    Retrieve, update or delete an NGO
+    """
+    try:
+        ngo = NGO.objects.get(pk=pk)
+    except NGO.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = NGOSerializer(ngo)
+        return Response(serializer.data)
+    
+    elif request.method == 'PUT':
+        serializer = NGOSerializer(ngo, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        ngo.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET'])
+def get_all_ngos(request):
+    """
+    Récupère toutes les ONGs avec leurs détails complets
+    """
+    ngos = NGO.objects.all()
+    serializer = NGOSerializer(ngos, many=True)
+    return Response(serializer.data)
+
+# Option avec filtrage
+@api_view(['GET'])
+def get_filtered_ngos(request):
+    """
+    Récupère toutes les ONGs avec possibilité de filtrage
+    """
+    ngos = NGO.objects.all()
+    
+    # Filtrage par localisation
+    localisation = request.query_params.get('localisation', None)
+    if localisation:
+        ngos = ngos.filter(localisation__icontains=localisation)
+    
+    # Recherche textuelle dans la description
+    description = request.query_params.get('description', None)
+    if description:
+        ngos = ngos.filter(description__icontains=description)
+    
+    # Tri des résultats
+    ordering = request.query_params.get('ordering', 'username')
+    ngos = ngos.order_by(ordering)
+    
+    serializer = NGOSerializer(ngos, many=True)
+    return Response({
+        'count': ngos.count(),
+        'results': serializer.data
+    })        
