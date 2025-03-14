@@ -220,10 +220,23 @@ class Badge(models.Model):
     ]
 
     name = models.CharField(max_length=100, unique=True)
+    badge_id = models.PositiveIntegerField(unique=True)
     badge_type = models.CharField(max_length=20, choices=BADGE_TYPES)
     criteria = models.JSONField()  # {"metric": "meals_provided", "threshold": 1000}
     image_ipfs_hash = models.CharField(max_length=46)
     description = models.TextField()
+    ipfs_media = models.CharField(max_length=46)
+    network = models.CharField(max_length=20)
+
+
+class UserAchievement(models.Model):
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    missions_joined = models.PositiveIntegerField(default=0)
+    total_donated = models.DecimalField(max_digits=20, decimal_places=2)
+    lives_saved = models.PositiveIntegerField(default=0)
+    people_fed = models.PositiveIntegerField(default=0)
+    education_impact = models.PositiveIntegerField(default=0)
+    last_updated = models.DateTimeField(auto_now=True)
 
 
 class UserBadge(models.Model):
@@ -234,6 +247,10 @@ class UserBadge(models.Model):
 
 
 class ImpactReport(models.Model):
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    report_hash = models.CharField(max_length=66)
+    pdf_url = models.URLField()
+
     mission = models.ForeignKey(Mission, on_delete=models.CASCADE)
     report_type = models.CharField(
         max_length=20,
