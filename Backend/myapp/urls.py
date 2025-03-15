@@ -13,7 +13,9 @@ urlpatterns = [
     path('ngo-list/',get_ngo_list), 
     path('person_need/', person_in_need_list, name='person_in_need-list'),
     path('person_need/<int:pk>/', person_in_need_detail, name='person_in_need-detail'),
- 
+    path('ngo/<int:id>/completed-requests/', NGOCompletedRequestsAPIView.as_view(), name='api-ngo-completed-requests'),
+ path('help-requests/completed-sum', get_completed_help_requests_sum, name='completed_help_requests_sum'),
+    path('ngo/<int:ngo_id>/help-requests/<str:status_filter>/count/', get_help_requests_count_by_status, name='ngo-help-requests-count'),
 
 
 
@@ -33,4 +35,12 @@ urlpatterns = [
     path('ngos/<int:ngo_id>/help-requests/<int:help_request_id>/', help_requests_by_ngo, name='help-request-detail-by-ngo'),
     path('transactions/', list_transactions, name='list-transactions'),
     path('transactions/create/', create_transaction, name='create-transaction'),
-    ]
+    path('ngos/<int:ngo_id>/transactions/', transactions_by_ngo, name='transactions-by-ngo'),
+    path('ngos/<int:ngo_id>/accomplishment-images/', accomplishment_images_by_ngo, name='accomplishment-images-by-ngo'),
+    path('persons-in-need/<int:person_in_need_id>/help-requests/', help_requests_by_person_in_need, name='help-requests-by-person-in-need'),
+    path('help-requests/<int:pk>/update/', update_help_request, name='update-help-request'),
+    path('persons-in-need/<int:person_in_need_id>/completed-help-requests/', completed_help_requests_by_person_in_need, name='completed-help-requests-by-person-in-need'),
+    path('persons-in-need/<int:person_in_need_id>/transactions/', transactions_by_person_in_need, name='transactions-by-person-in-need'),
+    path('help-requests/<int:help_request_id>/transaction-summary/', transaction_summary_by_help_request, name='transaction-summary-by-help-request'),
+    path('ngos/<int:ngo_id>/help-requests/count/<str:category>/', help_request_count_by_category_and_ngo, name='help-request-count-by-category-and-ngo'),
+    path('ngos/<int:ngo_id>/help-requests/<str:request_status>/', help_requests_by_ngo_and_status, name='help-requests-by-ngo-and-status')]

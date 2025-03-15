@@ -140,3 +140,9 @@ class PersonInNeedSerializer(serializers.ModelSerializer):
     class Meta:
         model = PersonInNeed
         fields = '__all__'
+class NGOCompletedRequestsSerializer(serializers.ModelSerializer):
+    completed_requests_count = serializers.IntegerField(read_only=True)
+    
+    class Meta:
+        model = NGO
+        fields = ['id', 'username', 'completed_requests_count']

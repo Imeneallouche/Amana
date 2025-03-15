@@ -7,6 +7,30 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
 from django.db.models import Sum
+from rest_framework import status
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import *
+from .serializers import *
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+from django.db import IntegrityError
+from django.db.models import Sum
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import User
+from .serializers import UserSerializer
+from .models import *
+from .serializers import *
+from django.db.models import Q, F, ExpressionWrapper, FloatField
+from .serializers import HelpRequestSearchSerializer
+from datetime import datetime
+from rest_framework import generics
+from django.db.models import Sum, Count, F, Q
+from rest_framework.decorators import api_view
+
 @api_view(['GET', 'POST'])
 def user_list(request):
     if request.method == 'GET':
@@ -153,6 +177,115 @@ def get_filtered_ngos(request):
         'results': serializer.data
     })        
 
+@api_view(['GET'])
+def help_requests_by_person_in_need(request, person_in_need_id):
+    try:
+        # Get the person in need
+        person_in_need = PersonInNeed.objects.get(pk=person_in_need_id)
+
+        # Retrieve all help requests associated with the person in need
+        help_requests = HelpRequest.objects.filter(person_in_need=person_in_need)
+
+        # Serialize the help requests
+        serializer = HelpRequestSerializer(help_requests, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except PersonInNeed.DoesNotExist:
+        return Response({'error': 'Person in need not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@api_view(['PUT'])
+def update_help_request(request, pk):
+    try:
+        # Retrieve the help request by ID
+        help_request = HelpRequest.objects.get(pk=pk)
+
+        # Update the help request with the data from the request
+        serializer = HelpRequestSerializer(help_request, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except HelpRequest.DoesNotExist:
+        return Response({'error': 'Help request not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def completed_help_requests_by_person_in_need(request, person_in_need_id):
+    try:
+        # Get the person in need
+        person_in_need = PersonInNeed.objects.get(pk=person_in_need_id)
+
+        # Retrieve all completed help requests associated with the person in need
+        completed_help_requests = HelpRequest.objects.filter(person_in_need=person_in_need, status='Completed')
+
+        # Serialize the help requests
+        serializer = HelpRequestSerializer(completed_help_requests, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except PersonInNeed.DoesNotExist:
+        return Response({'error': 'Person in need not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def transactions_by_person_in_need(request, person_in_need_id):
+    try:
+        # Get the person in need
+        person_in_need = PersonInNeed.objects.get(pk=person_in_need_id)
+
+        # Get query parameters for filters
+        title_filter = request.query_params.get('title', None)
+        status_filter = request.query_params.get('status', None)
+
+        # Retrieve all transactions associated with help requests where the person in need is specified
+        transactions = Transaction.objects.filter(request__person_in_need=person_in_need)
+
+        # Apply title filter if provided
+        if title_filter:
+            transactions = transactions.filter(request__title__icontains=title_filter)
+
+        # Apply status filter if provided
+        if status_filter:
+            transactions = transactions.filter(status=status_filter)
+
+        # Serialize the transactions
+        serializer = TransactionSerializer(transactions, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except PersonInNeed.DoesNotExist:
+        return Response({'error': 'Person in need not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+@api_view(['GET'])
+def transaction_summary_by_help_request(request, help_request_id):
+    try:
+        # Get the help request
+        help_request = HelpRequest.objects.get(pk=help_request_id)
+
+        # Count the number of completed transactions
+        completed_transactions_count = Transaction.objects.filter(request=help_request, status='Completed').count()
+
+        # Count the number of pending transactions
+        pending_transactions_count = Transaction.objects.filter(request=help_request, status='Pending').count()
+
+        # Return the counts in the response
+        return Response({
+            'help_request_id': help_request_id,
+            'completed_transactions_count': completed_transactions_count,
+            'pending_transactions_count': pending_transactions_count
+        }, status=status.HTTP_200_OK)
+    except HelpRequest.DoesNotExist:
+        return Response({'error': 'Help request not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 """ 
 maha end 
 """
@@ -319,11 +452,24 @@ def volunteer_accomplishment_images(request, volunteer_id):
     except Volunteer.DoesNotExist:
         return Response({'error': 'Volunteer not found'}, status=status.HTTP_404_NOT_FOUND)
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.db.models import F, ExpressionWrapper, FloatField
+from .models import HelpRequest, NGO
+from .serializers import HelpRequestSerializer
+
 @api_view(['GET'])
 def help_requests_by_ngo(request, ngo_id, help_request_id=None):
     try:
         # Get the NGO
         ngo = NGO.objects.get(pk=ngo_id)
+
+        # Get query parameters for filters
+        status_filter = request.query_params.get('status', None)
+        category_filter = request.query_params.get('category', None)
+        location_filter = request.query_params.get('location', None)
+        progress_filter = request.query_params.get('progress', None)
 
         if help_request_id is not None:
             # Retrieve a specific help request by ID
@@ -336,12 +482,72 @@ def help_requests_by_ngo(request, ngo_id, help_request_id=None):
         else:
             # Retrieve all help requests where the person in need is associated with the NGO
             help_requests = HelpRequest.objects.filter(person_in_need__associated_ngo=ngo)
+
+            # Apply filters if provided
+            if status_filter:
+                help_requests = help_requests.filter(status=status_filter)
+            if category_filter:
+                help_requests = help_requests.filter(category=category_filter)
+            if location_filter:
+                help_requests = help_requests.filter(location__icontains=location_filter)
+            if progress_filter:
+                # Calculate progress as a percentage
+                help_requests = help_requests.annotate(
+                    progress=ExpressionWrapper(
+                        F('current_amount') * 100 / F('required_amount'),
+                        output_field=FloatField()
+                    )
+                ).filter(progress__gte=float(progress_filter))
+
             serializer = HelpRequestSerializer(help_requests, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except NGO.DoesNotExist:
         return Response({'error': 'NGO not found'}, status=status.HTTP_404_NOT_FOUND)
-    
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+@api_view(['GET'])
+def transactions_by_ngo(request, ngo_id):
+    try:
+        # Get the NGO
+        ngo = NGO.objects.get(pk=ngo_id)
+
+        # Retrieve all transactions associated with help requests where the person in need is linked to the NGO
+        transactions = Transaction.objects.filter(request__person_in_need__associated_ngo=ngo)
+
+        # Serialize the transactions
+        serializer = TransactionSerializer(transactions, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except NGO.DoesNotExist:
+        return Response({'error': 'NGO not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def accomplishment_images_by_ngo(request, ngo_id):
+    try:
+        # Get the NGO
+        ngo = NGO.objects.get(pk=ngo_id)
+
+        # Retrieve all transactions associated with help requests where the person in need is linked to the NGO
+        transactions = Transaction.objects.filter(request__person_in_need__associated_ngo=ngo)
+
+        # Extract accomplishment images from the transactions
+        accomplishment_images = []
+        for transaction in transactions:
+            if transaction.accomplishment_images:
+                accomplishment_images.extend(transaction.accomplishment_images)
+
+        return Response({'ngo_id': ngo_id, 'accomplishment_images': accomplishment_images}, status=status.HTTP_200_OK)
+    except NGO.DoesNotExist:
+        return Response({'error': 'NGO not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 """ 
 maha start
 """
@@ -587,6 +793,184 @@ def person_in_need_detail(request,pk):
     elif request.method== 'DELETE':
         person_need.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-""" 
-maha end 
+    
+@api_view(['GET'])
+def help_request_count_by_category_and_ngo(request, ngo_id, category):
+    try:
+        # Get the NGO
+        ngo = NGO.objects.get(pk=ngo_id)
+
+        # Count the number of help requests in the specified category for persons in need associated with the NGO
+        help_request_count = HelpRequest.objects.filter(
+            person_in_need__associated_ngo=ngo,
+            category=category
+        ).count()
+
+        return Response({
+            'ngo_id': ngo_id,
+            'category': category,
+            'help_request_count': help_request_count
+        }, status=status.HTTP_200_OK)
+    except NGO.DoesNotExist:
+        return Response({'error': 'NGO not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def help_requests_by_ngo_and_status(request, ngo_id, request_status):
+    try:
+        # Get the NGO
+        ngo = NGO.objects.get(pk=ngo_id)
+
+        # Retrieve help requests with the specified status for persons in need associated with the NGO
+        help_requests = HelpRequest.objects.filter(
+            person_in_need__associated_ngo=ngo,
+            status=request_status
+        )
+
+        # Serialize the help requests
+        serializer = HelpRequestSerializer(help_requests, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except NGO.DoesNotExist:
+        return Response({'error': 'NGO not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Catch any other exceptions and return a generic error message
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class NGOCompletedRequestsAPIView(generics.RetrieveAPIView):
+    queryset = NGO.objects.all()
+    serializer_class = NGOCompletedRequestsSerializer
+    lookup_field = 'id'
+    
+    def retrieve(self, request, *args, **kwargs):
+        ngo = self.get_object()
+        
+        # Récupérer toutes les personnes dans le besoin associées à cette ONG
+        persons_in_need = PersonInNeed.objects.filter(associated_ngo=ngo)
+        
+        # Compter les demandes d'aide complétées
+        completed_requests_count = HelpRequest.objects.filter(
+            person_in_need__in=persons_in_need,
+            status='Completed'
+        ).count()
+        
+        # Ajouter le compteur aux données de l'ONG
+        data = self.get_serializer(ngo).data
+        data['completed_requests_count'] = completed_requests_count
+        
+        return Response(data)    
+
+
+
+@api_view(['GET'])
+def get_completed_help_requests_sum(request):
+    """
+    Calcule la somme des montants requis (required_amount) des demandes d'aide complétées.
+    
+    
+    Retourne  le total amount basé sur required_amount.
+    """
+    completed_requests = HelpRequest.objects.filter(status="Completed")
+    
+    # Filtre par ONG 
+    ngo_id = request.query_params.get('ngo_id', None)
+    if ngo_id:
+        try:
+            ngo_id = int(ngo_id)
+            completed_requests = completed_requests.filter(person_in_need__associated_ngo_id=ngo_id)
+        except ValueError:
+            pass
+    
+    # Filtre par catégorie
+    category = request.query_params.get('category', None)
+    if category:
+        completed_requests = completed_requests.filter(category=category)
+    
+    # Filtre par localisatio
+    location = request.query_params.get('location', None)
+    if location:
+        completed_requests = completed_requests.filter(location__icontains=location)
+    
+    # Filtre par personne dans le besoin 
+    person_id = request.query_params.get('person_id', None)
+    if person_id:
+        try:
+            person_id = int(person_id)
+            completed_requests = completed_requests.filter(person_in_need_id=person_id)
+        except ValueError:
+            pass
+    
+    result = completed_requests.aggregate(total_amount=Sum('required_amount'))
+    
+    return Response({
+        'total_amount': result['total_amount'] or 0
+    })
+
+@api_view(['GET'])
+def get_total_required_amount_for_ngo(request, ngo_id):
+    """
+    Calcule la somme totale des montants requis pour toutes les demandes d'aide
+    associées à une ONG spécifique.
+    
+    Args:
+        request: La requête HTTP
+        ngo_id: L'identifiant de l'ONG
+    """
+    try:
+        # Récupérer toutes les personnes dans le besoin associées à cette ONG
+        persons_in_need = PersonInNeed.objects.filter(associated_ngo_id=ngo_id)
+        
+        # Récupérer toutes les demandes d'aide pour ces personnes
+        help_requests = HelpRequest.objects.filter(person_in_need__in=persons_in_need)
+        
+        # Calculer la somme totale
+        total_amount = sum([request.required_amount for request in help_requests], Decimal('0.00'))
+        
+        return Response({
+            'ngo_id': ngo_id,
+            'total_required_amount': str(total_amount)
+        })
+    except NGO.DoesNotExist:
+        return Response(
+            {'error': 'ONG non trouvée'}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+@api_view(['GET'])
+def get_help_requests_count_by_status(request, ngo_id, status_filter):
+    """
+    Compte le nombre de demandes d'aide ayant un statut spécifique pour une ONG donnée.
+    
+    Args:
+        request: La requête HTTP
+        ngo_id: L'identifiant de l'ONG
+        status_filter: Le statut des demandes à compter ('Pending', 'Approved', 'Funding', 'Completed')
+    """
+    try:
+        # Vérifier si l'ONG existe
+        NGO.objects.get(id=ngo_id)
+        
+        # Récupérer toutes les personnes dans le besoin associées à cette ONG
+        persons_in_need = PersonInNeed.objects.filter(associated_ngo_id=ngo_id)
+        
+        # Compter les demandes d'aide ayant le statut spécifié
+        count = HelpRequest.objects.filter(
+            person_in_need__in=persons_in_need,
+            status=status_filter
+        ).count()
+        
+        return Response({
+            'ngo_id': ngo_id,
+            'status': status_filter,
+            'count': count
+        })
+    except NGO.DoesNotExist:
+        return Response(
+            {'error': 'ONG non trouvée'}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+"""
+maha end
 """
