@@ -5,14 +5,14 @@ import ong from '../assets/baraka.jpg';
 export default function ONGCard({ name , description, image }) {
 
   return (
-    <div className="bg-white p-6 rounded-2xl my-5 shadow-md flex items-center gap-8 max-w-lg border">
+    <div className="bg-white p-6 rounded-2xl my-5 shadow-md flex items-center gap-8 w-[400px] border">
       {/* Logo */}
       <img src={image} alt="El-Baraka" className="w-24 h-24 object-contain" />
 
       {/* Text Content */}
       <div className="flex-1">
         <h2 className="text-lg font-jakarta text-myblack font-semibold">{name}</h2>
-        <p className="text-[#8A8A8A] font-jakarta text-sm line-clamp-3  overflow-hidden">
+        <p className="text-[#8A8A8A] font-jakarta text-sm line-clamp-2 overflow-hidden">
           {description}
         </p>
 

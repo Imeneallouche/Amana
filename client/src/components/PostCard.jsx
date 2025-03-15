@@ -12,7 +12,7 @@ export  function DonationCard({location , urgency , title , total , raised , ima
 
       {/* Content */}
       <div className="mt-4">
-        <div className=" flex h-[50px] mb-3 line-clamp-2  overflow-hidden">
+        <div className=" flex h-[30px] mb-3 line-clamp-2  overflow-hidden">
         <h2 className="text-lg font-semibold font-jakarta  text-gray-900">{title}</h2>
         </div>
         {/* Location & Urgency */}

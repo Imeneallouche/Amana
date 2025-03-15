@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '400px', // Custom screen size for extra small devices
+        'xl': '1180px', // Modify or add larger screens if needed
+      },
       colors: {
         mygreen: "#01321F",
         mywhite: "#F9F9F9",
