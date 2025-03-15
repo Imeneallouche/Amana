@@ -6,7 +6,7 @@
 
 # AMANA: Blockchain-Powered Donation Platform for Transparent Giving 🌙
 
-<img src="https://img.shields.io/badge/Blockchain-Ethereum%20%7C%20Polygon%20%7C%20zkSync-blue" alt="Blockchain Support"> <img src="https://img.shields.io/badge/AI-Impact%20Analytics%20%7C%20Fraud%20Detection-orange" alt="AI Features"> <img src="https://img.shields.io/badge/Security-2FA%20%7C%20IPFS%20Encryption-brightgreen" alt="Security">
+<img src="https://img.shields.io/badge/Blockchain-Ethereum%20%7C%20Polygon%20%7C%20zkSync-blue" alt="Blockchain Support"> <img src="https://img.shields.io/badge/AI-Impact%20Analytics-orange" alt="AI Features"> <img src="https://img.shields.io/badge/Security-2FA%20%7C%20IPFS%20Encryption-brightgreen" alt="Security">
 
 <br><br><br>
 
