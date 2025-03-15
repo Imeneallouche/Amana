@@ -22,6 +22,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User
 from .serializers import UserSerializer
+
 from .models import *
 from .serializers import *
 from django.db.models import Q, F, ExpressionWrapper, FloatField
@@ -30,6 +31,7 @@ from datetime import datetime
 from rest_framework import generics
 from django.db.models import Sum, Count, F, Q
 from rest_framework.decorators import api_view
+
 
 @api_view(['GET', 'POST'])
 def user_list(request):
@@ -44,7 +46,7 @@ def user_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
 
 @api_view(['GET'])
 def list_transactions(request):
@@ -974,3 +976,4 @@ def get_help_requests_count_by_status(request, ngo_id, status_filter):
 """
 maha end
 """
+
