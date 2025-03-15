@@ -34,7 +34,6 @@ function HomePageONG() {
   
           
           <div className="mx-8 mt-8">
-          <p className='font-jakarta text-[24px] font-bold mx-8 text-myblack'>Current Campaigns You Can Contribute To</p>
    {/**
     * 
     */}
