@@ -267,3 +267,27 @@ GNU AGPLv3 - Ensuring perpetual transparency
 
 > "AMANA redefines charitable trust through uncompromising transparency - where every donation becomes a verifiable chain of hope."
 > Made with <3 By Mahalanobis Team
+## 3. **Data Flow**
+The data flow in AMANA is designed to ensure seamless interaction between components:
+
+1. **User Input**: A volunteer, NGO, or beneficiary interacts with the frontend (e.g., donates, creates a mission, or posts a need).
+2. **Frontend Processing**: The frontend sends the data to the backend via API calls.
+3. **Backend Logic**: The backend processes the data (e.g., creates a smart contract for donations, validates NGO missions, or stores beneficiary requests).
+4. **Blockchain Interaction**: The backend interacts with the blockchain layer to execute smart contracts and store transaction proofs.
+5. **Database Storage**: Data is stored in the relational database (e.g., user profiles, mission details) or IPFS (e.g., proofs, media files).
+6. **AI Integration**: AI services analyze data to provide insights (e.g., donor matching, fraud detection, impact reports).
+7. **Feedback to User**: The frontend updates the user interface with real-time data (e.g., donation status, mission progress, impact reports).
+
+```mermaid
+graph LR
+    A[User Input] --> B[Frontend]
+    B --> C[Backend]
+    C --> D[Blockchain Layer]
+    C --> E[Database]
+    C --> F[AI Services]
+    D --> G[Transaction Proofs]
+    E --> H[User Profiles & Mission Data]
+    F --> I[Impact Reports & Fraud Detection]
+    G --> B
+    H --> B
+    I --> B
