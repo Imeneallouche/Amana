@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import logo from "../assets/logo.svg";
 import { I3DCubeScan, EmptyWallet, MedalStar, Home2, LogoutCurve, ArrowDown2 } from "iconsax-react";
 
-export function SideBar() {
+export function SideBarONG() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isTransactionsOpen, setIsTransactionsOpen] = useState(false);
@@ -30,9 +30,9 @@ export function SideBar() {
       <Sidebar.Items className="!border-none">
         <Sidebar.ItemGroup className="!border-none">
           <Sidebar.Item
-              onClick={() => navigate("/homeVolunteer")}
-            className={`${getItemClass("/homeVolunteer")} items-center lg:gap-[10%] my-2 border-0`}
-            icon={() => <Home2 size="20" variant="Bold" color={location.pathname === "/homeVolunteer" ? "#C1B49A" : "#96A9A2"} />}
+              onClick={() => navigate("/homeONG")}
+            className={`${getItemClass("/homeONG")} items-center lg:gap-[10%] my-2 border-0`}
+            icon={() => <Home2 size="20" variant="Bold" color={location.pathname === "/homeONG" ? "#C1B49A" : "#96A9A2"} />}
           >
             Home
           </Sidebar.Item>
@@ -45,29 +45,14 @@ export function SideBar() {
             Simulation
           </Sidebar.Item>
 
-          <div>
-            <button onClick={toggleTransactions} className={`w-full text-left ${getItemClass("/transactionsVolunteer")} flex items-center lg:gap-[10%] my-2`}>
-              <EmptyWallet size="20" variant="Bold" color="#96A9A2" />
-              <span className="ml-2">Transactions</span>
-              <ArrowDown2 size="16" className={`ml-auto transition-transform ${isTransactionsOpen ? "rotate-180" : "rotate-0"}`} />
-            </button>
-            {isTransactionsOpen && (
-              <div className="ml-6">
-                <Sidebar.Item
-                  onClick={() => navigate("/transactionsVolunteerInProgress")}
-                  className={`${getItemClass("/transactionsVolunteerInProgress")} flex items-center lg:gap-[10%] my-2`}
-                >
-                  Pending
-                </Sidebar.Item>
-                <Sidebar.Item
-                  onClick={() => navigate("/transactionsVolunteerCompleted")}
-                  className={`${getItemClass("/transactionsVolunteerCompleted")} flex items-center lg:gap-[10%] my-2`}
-                >
-                  Achieved
-                </Sidebar.Item>
-              </div>
-            )}
-          </div>
+          <Sidebar.Item
+            onClick={() => navigate("/TransactionsONG")}
+            className={`${getItemClass("/TransactionsONG")} flex items-center lg:gap-[10%] my-2`}
+            icon={() => <EmptyWallet size="20" variant="Bold" color={location.pathname === "//TransactionsONG"? "#C1B49A" : "#96A9A2"} />}
+          >
+            Transactions
+          </Sidebar.Item>
+
 
           <Sidebar.Item
             onClick={() => navigate("/achievementsVolunteer")}
@@ -91,4 +76,4 @@ export function SideBar() {
   );
 }
 
-export default SideBar;
+export default SideBarONG;

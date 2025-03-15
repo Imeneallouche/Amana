@@ -6,6 +6,8 @@ import AchievedTransactions from './pages/Volunteer/AchievedTransaction';
 import InProgressTransactions from './pages/Volunteer/InProgressTransaction';
 import Achievements from './pages/Volunteer/Achievements';
 import Payment from './pages/Volunteer/Payment';
+import Simulation from './pages/Volunteer/Simulation';
+import HomePageONG from './pages/ONG/homepage';
 function App() {
   return (
     <div className="font-lora flex flex-col relative overflow-hidden  w-screen">
@@ -17,6 +19,8 @@ function App() {
           <Route path="/transactionsVolunteerInProgress" element={<InProgressTransactions />} />
           <Route path="/achievementsVolunteer" element={<Achievements />} />
           <Route path="/paymentVolunteer" element={<Payment />} />
+          <Route path="/simulation" element={<Simulation />} />
+          <Route path="/homeONG" element={<HomePageONG />} />
         </Routes>
     </div>
   );
