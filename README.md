@@ -188,10 +188,10 @@ GNU AGPLv3 - Ensuring perpetual transparency
 
 ## 📬 Contact
 **Mahalanobis Team**  
-[ALLOUCHE IMENE](li_allouche@esi.dz)  
-[HENNANE DOUAAELIKHLAS](ld_hennane@esi.dz)  
-[GUITOUN DJIHEN](lj_guittoun@esi.dz)  
-[REMIL MAHAFATIMAZOHRA](lm_remil@esi.dz) 
+- ALLOUCHE IMENE : li_allouche@esi.dz
+- HENNANE DOUAAELIKHLAS : ld_hennane@esi.dz
+- GUITOUN DJIHEN : lj_guittoun@esi.dz 
+- REMIL MAHAFATIMAZOHRA : lm_remil@esi.dz
 
 
 ```
