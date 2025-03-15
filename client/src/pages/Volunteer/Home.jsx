@@ -6,7 +6,7 @@ import DonationGrid from "../../components/PostsGrid";
 import SearchFilters from "../../components/Search";
 function HomePage() {
   return (
-    <div className="font-lora flex bg-[#F9F9F9] w-screen h-screen overflow-hidden ">
+    <div className="font-lora flex bg-[#F9F9F9] w-screen h-screen">
       {/* Sidebar with fixed width */}
       <SideBar className="w-64 min-w-[16rem] h-full  shadow-lg" />
 
