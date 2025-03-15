@@ -10,10 +10,10 @@ export function SideBar() {
   const navigate = useNavigate();
 
   const getItemClass = (path) =>
-    `rounded-lg p-2 flex items-center gap- text-md transition font-jakarta
+    `rounded-lg p-2  flex items-center gap-2 text-md transition font-jakarta
     ${ 
       location.pathname === path
-        ? "bg-[#D9D9D9] text-[#C1B49A]" // Active item style
+        ? "bg-[#D9D9D9] bg-opacity-40 text-[#C1B49A]" // Active item style
         : "text-[#F9F9F9] text-opacity-60 hover:bg-[#1D3D31]"
     }`;
 
@@ -26,7 +26,7 @@ export function SideBar() {
 
   return (
     <Sidebar className="h-screen w-[18.6%] bg-[#032B20] shadow-lg text-[#C1B49A]">
-      <div className="flex flex-col items-center py-6 mb-6 mt-8">
+      <div className="flex flex-col items-center py-6 mb-6  mt-8">
         <img src={logo} alt="Amanah" className="h-20" />
       </div>
 
@@ -34,29 +34,32 @@ export function SideBar() {
         <Sidebar.ItemGroup>
 
           <Sidebar.Item 
-            className={`${getItemClass("/home")} flex items-center my-2 mx-5 gap-8 `} 
-            icon={() => <Home2 size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
+          to="/homeVolunteer"
+            className={`${getItemClass("/homeVolunteer")} flex items-center my-2 mx-5 gap-8 `} 
+            icon={() => <Home2 size="20" className="ml-3"  variant="Bold" color={location.pathname === "/homeVolunteer" ? "#C1B49A" : "#96A9A2"} />}
             >
             Home
           </Sidebar.Item>
 
           <Sidebar.Item 
+            
             className={`${getItemClass("/simulation")} flex items-center mx-5 my-2 gap-8 `} 
-            icon={() => <I3DCubeScan size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
+            icon={() => <I3DCubeScan size="20" className="ml-3"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
             >
             Simulation
           </Sidebar.Item>
 
           <Sidebar.Item 
+          to="/transactionsVolunteer"
             className={`${getItemClass("/transactions")} flex items-center mx-5 my-2  gap-8`}
-            icon={() => <EmptyWallet size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
+            icon={() => <EmptyWallet size="20" className="ml-3" variant="Bold" color={location.pathname === "/transactionsVolunteer" ? "#C1B49A" : "#96A9A2"} />}
             >
             Transactions
           </Sidebar.Item>
 
           <Sidebar.Item 
             className={`${getItemClass("/achievements")} flex items-center mx-5 my-2 gap-8 `}
-            icon={() => <MedalStar size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
+            icon={() => <MedalStar size="20" className="ml-3"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
             >
             Achievements
           </Sidebar.Item>
@@ -64,7 +67,7 @@ export function SideBar() {
           <button onClick={handleLogout} className="w-full text-left mt-auto mb-4">
     <Sidebar.Item 
       className={`${getItemClass("/logout")} flex items-center mx-5 my-2 gap-8`} 
-      icon={() => <LogoutCurve size="20" variant="Bold" color="#96A9A2" />}
+      icon={() => <LogoutCurve size="20" className="ml-3" variant="Bold" color="#96A9A2" />}
     >
       Log Out
     </Sidebar.Item>
