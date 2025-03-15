@@ -26,17 +26,8 @@ class NGO(User):
 
 
 # Person in Need
-class PersonInNeed(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(
-        max_length=255, blank=True, null=True
-    )  # Optional for anonymity
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=20)
-    location = models.CharField(max_length=255, blank=True, null=True)
-    associated_ngo = models.ForeignKey(
-        NGO, on_delete=models.SET_NULL, null=True, blank=True
-    )
+class PersonInNeed(User):
+    associated_ngo = models.ForeignKey(NGO, on_delete=models.SET_NULL, null=True, blank=True)
 
 
 # Help Request
@@ -57,16 +48,7 @@ class HelpRequest(models.Model):
     location = models.CharField(max_length=255, blank=True, null=True)
     urgency = models.CharField(max_length=20, blank=True, null=True)  # Completed by AI
     proof_list = models.JSONField(default=list)  # Images, documents
-    status = models.CharField(
-        max_length=50,
-        choices=[
-            ("Pending", "Pending"),
-            ("Approved", "Approved"),
-            ("Funding", "Funding"),
-            ("Completed", "Completed"),
-        ],
-    )
-    requested_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=50, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Funding', 'Funding'), ('Completed', 'Completed')])
     current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     document_list = models.JSONField(default=list)
 
