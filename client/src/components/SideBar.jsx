@@ -18,6 +18,7 @@ export function SideBar() {
 
   const getIconClass = (path) =>
     location.pathname === path ? "text-[#C1B49A]" : "text-[#C1B49A]";
+    location.pathname === path ? "text-[#C1B49A]" : "text-[#C1B49A]";
 
   const handleLogout = () => {
     // Logout logic here
@@ -29,6 +30,8 @@ export function SideBar() {
         <img src={logo} alt="Amanah" className="h-20" />
       </div>
 
+      <Sidebar.Items className="!border-none">
+        <Sidebar.ItemGroup className="!border-none">
       <Sidebar.Items className="!border-none">
         <Sidebar.ItemGroup className="!border-none">
 
@@ -45,9 +48,19 @@ export function SideBar() {
             className={`${getItemClass("/simulation")} flex items-center  lg:gap-[10%]  my-2  `}
             icon={() => <I3DCubeScan size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
           >
+          <Sidebar.Item
+            to="/homeVolunteer"
+            className={`${getItemClass("/simulation")} flex items-center  lg:gap-[10%]  my-2  `}
+            icon={() => <I3DCubeScan size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
+          >
             Simulation
           </Sidebar.Item>
 
+          <Sidebar.Item
+            to="/transactionsVolunteer"
+            className={`${getItemClass("/transactions")} flex items-center  lg:gap-[10%]  my-2 `}
+            icon={() => <EmptyWallet size="20"  variant="Bold" color={location.pathname === "/transactionsVolunteer" ? "#C1B49A" : "#96A9A2"} />}
+          >
           <Sidebar.Item
             to="/transactionsVolunteer"
             className={`${getItemClass("/transactions")} flex items-center  lg:gap-[10%]  my-2 `}
@@ -61,9 +74,21 @@ export function SideBar() {
             icon={() => <MedalStar size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
           >
             Acheivments
+          <Sidebar.Item
+            className={`${getItemClass("/achievements")} flex items-center  lg:gap-[10%]  my-2 `}
+            icon={() => <MedalStar size="20"  variant="Bold" color={location.pathname === "/dashboard" ? "#C1B49A" : "#96A9A2"} />}
+          >
+            Acheivments
           </Sidebar.Item>
 
           <button onClick={handleLogout} className="w-full text-left mt-auto mb-4">
+            <Sidebar.Item
+              className={`${getItemClass("/logout")} flex items-center  my-2  lg:gap-[10%] `}
+              icon={() => <LogoutCurve size="20"  variant="Bold" color="#96A9A2" />}
+            >
+              Log Out
+            </Sidebar.Item>
+          </button>
             <Sidebar.Item
               className={`${getItemClass("/logout")} flex items-center  my-2  lg:gap-[10%] `}
               icon={() => <LogoutCurve size="20"  variant="Bold" color="#96A9A2" />}

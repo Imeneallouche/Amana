@@ -11,7 +11,7 @@ export default function SearchFilters() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 items-center justify-between p-6 rounded-xl ">
+    <div className="flex flex-col md:flex-row gap-6 items-center justify-between p-2 rounded-xl ">
       {/* Search Bar */}
       <div className="flex items-center bg-[#E5E5E5] px-4 py-3 rounded-lg w-full md:w-96 ">
         <SearchNormal1 size="20" color="#14532D" />
@@ -44,7 +44,7 @@ export default function SearchFilters() {
         <div className="relative">
           <button
             onClick={() => toggleDropdown("progress")}
-            className="flex items-center gap-2 bg-gray-100 px-4 py-3 rounded-lg text-gray-700 text-sm shadow-sm hover:bg-gray-200"
+            className="flex items-center gap-2 bg-[#E5E5E5] px-4 py-3 rounded-lg text-gray-700 text-sm shadow-sm hover:bg-gray-200"
           >
             Progress Status <ChevronDown className="w-4 h-4" />
           </button>
@@ -61,7 +61,18 @@ export default function SearchFilters() {
                   max="100"
                   value={progress}
                   onChange={(e) => setProgress(e.target.value)}
-                  className="w-full cursor-pointer"
+                  className="w-full cursor-pointer appearance-none bg-gray-300 h-1 rounded-lg 
+                  [&::-webkit-slider-thumb]:appearance-none 
+                  [&::-webkit-slider-thumb]:w-4 
+                  [&::-webkit-slider-thumb]:h-4 
+                  [&::-webkit-slider-thumb]:bg-green-600 
+                  [&::-webkit-slider-thumb]:rounded-full 
+                  [&::-webkit-slider-thumb]:hover:bg-green-700
+                  [&::-moz-range-thumb]:w-4 
+                  [&::-moz-range-thumb]:h-4 
+                  [&::-moz-range-thumb]:bg-green-600 
+                  [&::-moz-range-thumb]:rounded-full 
+                  [&::-moz-range-thumb]:hover:bg-green-700"
                 />
                 <span className="text-xs text-gray-600">100%</span>
               </div>
@@ -81,7 +92,7 @@ function Dropdown({ label, isOpen, onToggle, options }) {
     <div className="relative">
       <button
         onClick={onToggle}
-        className="flex items-center gap-2 bg-gray-100 px-4 py-3 rounded-lg text-gray-700 text-sm shadow-sm hover:bg-gray-200"
+        className="flex items-center gap-2 bg-[#E5E5E5] px-4 py-3 rounded-lg text-gray-700 text-sm shadow-sm hover:bg-gray-200"
       >
         {label} <ChevronDown className="w-4 h-4" />
       </button>

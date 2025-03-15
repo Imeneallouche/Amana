@@ -6,6 +6,7 @@ export default function ONGCard({ name , description, image }) {
 
   return (
     <div className="bg-white p-6 rounded-2xl my-5 shadow-md flex items-center gap-8 w-[400px] border">
+    <div className="bg-white p-6 rounded-2xl my-5 shadow-md flex items-center gap-8 w-[400px] border">
       {/* Logo */}
       <img src={image} alt="El-Baraka" className="w-24 h-24 object-contain" />
 
