@@ -7,10 +7,11 @@ import { Pagination, Navigation } from "swiper/modules";
 import BlogCard from "./BlogCard";
 import { ArrowLeft, ArrowRight } from "iconsax-react";
 import bg from "../assets/dates.jpg";
-
+import bg1 from '../assets/img.png';
+import bg2 from '../assets/healthcare.png';
 const blogPosts = [
-  { title: "Education Mission", date: "March 2025", description: "A journey to empower young minds through quality education.", img: bg },
-  { title: "Healthcare Support", date: "April 2025", description: "Providing medical aid to communities in need.", img: bg },
+  { title: "Education Mission", date: "March 2025", description: "A journey to empower young minds through quality education.", img: bg1 },
+  { title: "Healthcare Support", date: "April 2025", description: "Providing medical aid to communities in need.", img: bg2 },
   { title: "Food Distribution", date: "May 2025", description: "Ensuring no family goes hungry through our outreach programs.", img: bg },
   { title: "Disaster Relief", date: "June 2025", description: "Helping communities rebuild after natural disasters.", img: bg },
   { title: "Environmental Initiative", date: "July 2025", description: "Promoting sustainability through various programs.", img: bg },

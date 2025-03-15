@@ -23,7 +23,7 @@ export default function ImpactReports() {
     <div className="w-full mx-auto p-6 pt-0">
       <div className="space-y-2">
         {reports.map((report, index) => (
-          <div key={index} className="w-full flex items-center justify-between p-4 border rounded-lg ">
+          <div key={index} className="w-full flex items-center justify-between p-4 border rounded-lg transition-transform transform hover:scale-105 duration-200">
             <div className="flex items-center space-x-4">
               <span className="bg-gray-200 p-2 rounded text-sm font-medium">PDF</span>
               <div>
