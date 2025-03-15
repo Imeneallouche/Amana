@@ -52,9 +52,10 @@ graph LR
 | **NGOs** | Smart contract templates, Beneficiary validation workflows | Fund release proofs |
 | **Beneficiaries** | Anonymous needs posting, Aid receipt confirmation | IPFS media proofs |
 
-### 2. Revolutionary Functionalities
-
 <br>
+
+
+### 2. Revolutionary Functionalities
 
 #### 🎮 Volunteer Experience
 - **AI-Powered Dashboard**  
@@ -64,12 +65,18 @@ graph LR
       return max(available_missions, 
                 key=lambda m: cosine_similarity(profile.values, m.values))
   ```
-- **Personalized Profile for Gamification Encouragement**
-  Earn Badges, view statistics, generate personal reports on your annual helps, generate videos of impact you made
   
-- **Live Transaction Map**  
-  Track donations through blockchain states:  
+  
+- **Live Transaction Map**
+    Track donations through blockchain states:  
   `Initialized → Validated → In Escrow → Delivered → Confirmed`
+  
+- **Personalized Profile for Gamification Encouragement**
+  - Earn your Badges
+  - View your statistics
+  - Generate your personal reports on your annual or monthly helps
+  - Generate videos of impact you made through the pictures and videos that the NGO took as a proof on the volunteering mission you took part of
+
 
 - **Simulation Sandbox**  
   Test donations on multiple testnets with failure scenarios:
@@ -121,7 +128,9 @@ graph LR
 | **AI** | GPT-4 Impact Reports, Scikit-learn matching |
 
 
-### 🔍 Database Schema - The Transparency Backbone  
+<br>
+
+### Database Schema - The Transparency Backbone  
 **Innovative Dual-Tracking Architecture**  
 _Designed for End-to-End Impact Verification_
 
@@ -256,8 +265,5 @@ GNU AGPLv3 - Ensuring perpetual transparency
 - REMIL MAHAFATIMAZOHRA : lm_remil@esi.dz
 
 
-```
-![AMANA Architecture](https://via.placeholder.com/800x400.png?text=AMANA+System+Architecture+Diagram)
-```
-
 > "AMANA redefines charitable trust through uncompromising transparency - where every donation becomes a verifiable chain of hope."
+> Made with <3 By Mahalanobis Team
