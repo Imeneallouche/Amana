@@ -10,7 +10,7 @@ export function SideBar() {
   const navigate = useNavigate();
 
   const getItemClass = (path) =>
-    `rounded-lg py-2 px-1 xl:px-2   flex items-center text-[0.5rem] md:text-[0.6rem] lg:text-[0.75rem] xl:text-[1rem] transition font-jakarta
+    `rounded-lg py-2 px-1 xl:px-2  flex items-center text-[0.5rem] md:text-[0.6rem] lg:text-[0.75rem] xl:text-[1rem] transition font-jakarta
     ${location.pathname === path
       ? "bg-[#D9D9D9] bg-opacity-40 text-[#C1B49A]" // Active item style
       : "text-[#F9F9F9] text-opacity-60 hover:bg-[#1D3D31]"
@@ -24,8 +24,8 @@ export function SideBar() {
   };
 
   return (
-    <Sidebar className="h-screen px-3 w-[18.6%] bg-[#032B20] shadow-lg border-0 z-20 text-[#C1B49A]">
-      <div className="flex flex-col items-center py-6 mb-6  mt-8">
+    <Sidebar className="h-screen px-3 w-[18.6%] bg-[#032B20] shadow-lg text-[#C1B49A]">
+      <div className="flex flex-col items-center mb-2 md:mb-6  mt-16">
         <img src={logo} alt="Amanah" className="h-20" />
       </div>
 
@@ -34,7 +34,7 @@ export function SideBar() {
 
           <Sidebar.Item
             to="/homeVolunteer"
-            className={`${getItemClass("/homeVolunteer")} items-center  lg:gap-[10%] my-2 border-0  `}
+            className={`${getItemClass("/homeVolunteer")} items-center  lg:gap-[10%] my-2   `}
             icon={() => <Home2 size="20"  variant="Bold" color={location.pathname === "/homeVolunteer" ? "#C1B49A" : "#96A9A2"} />}
           >
             Home

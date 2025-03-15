@@ -17,7 +17,7 @@ export default function ONGSlider() {
   ];
 
   return (
-    <div className="w-full relative ml-12 flex flex-col items-center">
+    <div className="w-full  relative ml-12 flex flex-col items-center">
       {/* Swiper Slider */}
       <Swiper
         modules={[Pagination, Navigation]}
