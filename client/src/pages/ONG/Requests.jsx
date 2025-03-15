@@ -8,7 +8,7 @@ import img1 from "../../assets/i1.svg";
 import img2 from "../../assets/i1.svg";
 import img3 from "../../assets/i2.svg";
 import img4 from "../../assets/i3.svg";
-
+import CareRequestGrid from "../../components/request";
 function Requests() {
   return (
     <div className="font-lora flex bg-[#F9F9F9] w-screen h-screen">
@@ -37,7 +37,7 @@ function Requests() {
    {/**
     */}
 
-          <DonationGrid />
+          <CareRequestGrid />
           </div>
         </div>
       </div>

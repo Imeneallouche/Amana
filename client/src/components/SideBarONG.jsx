@@ -38,9 +38,9 @@ export function SideBarONG() {
           </Sidebar.Item>
 
           <Sidebar.Item
-            onClick={() => navigate("/simulation")}
-            className={`${getItemClass("/simulation")} flex items-center lg:gap-[10%] my-2`}
-            icon={() => <I3DCubeScan size="20" variant="Bold" color={location.pathname === "/simulation" ? "#C1B49A" : "#96A9A2"} />}
+            onClick={() => navigate("/requests")}
+            className={`${getItemClass("/requests")} flex items-center lg:gap-[10%] my-2`}
+            icon={() => <I3DCubeScan size="20" variant="Bold" color={location.pathname === "/requests" ? "#C1B49A" : "#96A9A2"} />}
           >
             Requests
           </Sidebar.Item>
@@ -48,7 +48,7 @@ export function SideBarONG() {
           <Sidebar.Item
             onClick={() => navigate("/TransactionsONG")}
             className={`${getItemClass("/TransactionsONG")} flex items-center lg:gap-[10%] my-2`}
-            icon={() => <EmptyWallet size="20" variant="Bold" color={location.pathname === "//TransactionsONG"? "#C1B49A" : "#96A9A2"} />}
+            icon={() => <EmptyWallet size="20" variant="Bold" color={location.pathname === "/TransactionsONG"? "#C1B49A" : "#96A9A2"} />}
           >
             Transactions
           </Sidebar.Item>

@@ -27,63 +27,66 @@ function Simulation() {
 
   return (
     <div className="font-lora flex bg-[#F9F9F9] w-screen h-screen">
-      {/* Sidebar */}
       <SideBar className="w-64 min-w-[16rem] h-full bg-white shadow-lg" />
-
-      {/* Main content */}
       <div className="flex-1 flex flex-col overflow-auto">
         <Header />
         <div className="mx-12">
-          <h2 className="text-2xl font-bold mb-6 text-center">Transaction Process Visualization</h2>
-
-          {/* Timeline Section */}
-          <div className="relative flex flex-col items-center">
-            {/* Horizontal Timeline Line */}
-            <div className="absolute top-[50%] left-0 right-0 mx-auto h-[4px] bg-blue-500 w-full"></div>
-
-            {/* Steps Positioned Above and Below Timeline */}
-            <div className="flex justify-evenly w-full relative">
-              {steps.map((step, index) => (
-                <div key={step.id} className="flex flex-col items-center relative w-[20%]">
-                  
-                  {/* Step Text + Image (Alternating Positions) */}
-                  {step.pos === 1 && (
-                    <motion.div
-                      initial={{ opacity: 0.3 }}
-                      animate={{ opacity: visibleStep >= index + 1 ? 1 : 0.3 }}
-                      transition={{ duration: 1 }}
-                      className="flex flex-col items-center mb-6"
-                    >
-                      <img src={step.img} alt={step.title} className="w-[80px] h-[80px] mb-2" />
-                      <h3 className="text-md font-semibold">{step.title}</h3>
-                      <p className="text-gray-600 text-sm mt-2 text-center">{step.description}</p>
-                    </motion.div>
-                  )}
-
-                  {/* Circle in the Center (Step Indicator) */}
+          <h2 className="text-2xl font-bold mb-6">Transaction Process Visualization</h2>
+          <div className="relative flex flex-row h-[600px] justify-evenly items-center">
+            {steps.map((step, index) => (
+              <div key={step.id} className={`flex flex-col w-[20%] ${step.pos === 1 ? "place-self-start" : "place-self-end"}`}>
+                <motion.div
+                  initial={{ opacity: 0.3 }}
+                  animate={{ opacity: visibleStep >= index + 1 ? 1 : 0.3 }}
+                  transition={{ duration: 1 }}
+                  className={`flex ${step.pos === 1 ? "flex-col" : "flex-col-reverse"} items-center gap-4`}
+                >
+                  <img src={step.img} alt={step.title} className="w-[120px] h-[120px] mb-2" />
+                  <div className="flex flex-col h-full text-center">
+                    <h3 className="text-md font-semibold">{step.title}</h3>
+                    <p className="text-gray-600 text-sm mt-2">{step.description}</p>
+                  </div>
                   <motion.div
-                    className={`w-8 h-8 rounded-full bg-blue-500 border-4 border-white shadow-lg absolute top-[50%] transform -translate-y-1/2`}
-                    initial={{ opacity: 0.3, scale: 0.8 }}
-                    animate={{
-                      opacity: visibleStep >= index + 1 ? 1 : 0.3,
-                      scale: visibleStep >= index + 1 ? 1 : 0.8,
-                    }}
+                    className={`w-6 h-6 rounded-full border-4 ${
+                      visibleStep >= index + 1 ? "border-mygreen bg-mygreen" : "border-gray-400 bg-white"
+                    }`}
+                    initial={{ scale: 0.5 }}
+                    animate={{ scale: visibleStep >= index + 1 ? 1 : 0.5 }}
                     transition={{ duration: 0.5 }}
-                  ></motion.div>
+                  />
+                </motion.div>
+              </div>
+            ))}
 
-                  {/* Step Text + Image (Alternating Positions) */}
-                  {step.pos === 0 && (
+            {/* Timeline */}
+            <div className="absolute top-1/2 left-0 right-0 flex justify-evenly items-center w-full transform -translate-y-1/2">
+              {steps.map((step, index) => (
+                <div key={step.id} className="relative flex items-center w-[20%]">
+                  {/* Connecting Dots */}
+                  {index > 0 && (
                     <motion.div
-                      initial={{ opacity: 0.3 }}
-                      animate={{ opacity: visibleStep >= index + 1 ? 1 : 0.3 }}
+                      initial={{ width: 0 }}
+                      animate={{ width: visibleStep >= index + 1 ? "100%" : "0%" }}
                       transition={{ duration: 1 }}
-                      className="flex flex-col items-center mt-6"
+                      className="absolute h-[4px] top-1/2 left-[-50%] w-full transform -translate-y-1/2 flex justify-between items-center"
                     >
-                      <img src={step.img} alt={step.title} className="w-[80px] h-[80px] mb-2" />
-                      <h3 className="text-md font-semibold">{step.title}</h3>
-                      <p className="text-gray-600 text-sm mt-2 text-center">{step.description}</p>
+                      {Array.from({ length: 10 }).map((_, dotIndex) => (
+                        <div
+                          key={dotIndex}
+                          className={`w-2 h-2 rounded-full ${visibleStep >= index + 1 ? "bg-mygreen bg-opacity-30 shadow-[2px] shadow-blur-[1px]" : "bg-gray-300"}`}
+                        />
+                      ))}
                     </motion.div>
                   )}
+                  {/* Circle Indicator
+                  <motion.div
+                    className={`w-6 h-6 rounded-full border-4 ${
+                      visibleStep >= index + 1 ? "border-mygreen bg-mygreen" : "border-gray-400 bg-white"
+                    }`}
+                    initial={{ scale: 0.5 }}
+                    animate={{ scale: visibleStep >= index + 1 ? 1 : 0.5 }}
+                    transition={{ duration: 0.5 }}
+                  /> */}
                 </div>
               ))}
             </div>

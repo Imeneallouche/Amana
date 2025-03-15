@@ -20,7 +20,7 @@ export default function ONGCard({ name, description, image }) {
         <div className="mt-3 flex gap-2">
 
         <button 
-        onClick={() => window.open("/paymentVolunteer", "_blank")} 
+        onClick={() =>  setClicked(true)} 
         className="bg-greeny text-white px-5 py-1.5 rounded-md font-jakarta text-sm font-medium transition duration-300 ease-in-out hover:bg-green-700 hover:scale-105">
          Follow
         </button>
