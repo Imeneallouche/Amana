@@ -6,7 +6,7 @@ export  function DonationCard({location , urgency , title , total , raised , ima
     const progress = (raised / total) * 100;
 
     return (
-    <div className="bg-white p-4 rounded-2xl shadow-lg max-w-xs border">
+    <div className="bg-white p-4 rounded-2xl shadow-lg max-w-md border">
       {/* Image */}
       <img src={image} alt="Orphan Donation" className="w-full h-48 object-cover rounded-xl" />
 

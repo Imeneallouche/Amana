@@ -11,9 +11,9 @@ export default function SearchFilters() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 items-center justify-between p-2 rounded-xl ">
+    <div className=" flex flex-col md:flex-row  items-center justify-between p-2 rounded-xl mx-6 md:mx-8 ">
       {/* Search Bar */}
-      <div className="flex items-center bg-[#E5E5E5] px-4 py-3 rounded-lg w-full md:w-96 ">
+      <div className="flex items-center bg-[#E5E5E5] px-4 py-3 rounded-lg w-full md:w-96  ">
         <SearchNormal1 size="20" color="#14532D" />
         <input
           type="text"
@@ -23,7 +23,7 @@ export default function SearchFilters() {
       </div>
 
       {/* Filter Buttons */}
-      <div className="flex flex-wrap gap-4">
+      <div className="hidden md:flex md:flex-wrap md:gap-4">
         {/* Case Dropdown */}
         <Dropdown
           label="Case"

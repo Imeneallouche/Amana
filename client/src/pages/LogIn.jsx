@@ -2,15 +2,24 @@ import React from "react";
 import logo from '../assets/logo.svg';
 import bg from '../assets/LogInbg.png';
 import { PasswordCheck , DirectboxNotif } from "iconsax-react"; 
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function LogIn() {
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate("/homeVolunteer"); // Redirect to the home page
+};
+
   return (
     <div 
-      className="h-screen w-full flex items-center justify-start bg-cover bg-center relative pl-20 pr-40" 
+      className="h-screen  w-full px-2 md:px-12 flex flex-row items-center justify-around bg-cover bg-center relative" 
       style={{ backgroundImage: `url(${bg})` }} 
     >
       {/* Login Card */}
-      <div className="relative ml-28 bg-[#032B20] bg-opacity-90 p-12 rounded-3xl px-12 shadow-lg w-[40%] text-white mr-24">
+      <div className="relative  bg-[#032B20] bg-opacity-90 p-12 rounded-3xl shadow-lg w-[40%] min-w-[360px] text-white ">
         
         {/* Logo */}
         <div className="flex flex-col items-center mb-6">
@@ -42,17 +51,21 @@ export default function LogIn() {
         </div>
         
         {/* Login Button */}
-        <button className="w-full bg-[#FFC978] text-black font-jakarta py-2 rounded-md font-semibold hover:bg-[#E6B865]">
+        <button 
+        className="w-full bg-[#FFC978] text-black font-jakarta py-2 rounded-md font-semibold hover:bg-[#E6B865]"
+        onClick={goToHome}
+        >
+        
           Login
         </button>
       </div>
       
       {/* Right Side Text */}
-      <div className=" text-white max-w-md">
-        <div className="bg-black bg-opacity-40 px-3 py-1  rounded-md inline-block mb-8">
+      <div className="hidden sm:flex sm:flex-col sm:h-screen  sm:justify-center sm:items-center   text-white ">
+        <div className="bg-black bg-opacity-40  p-1  rounded-md inline-block place-self-start mb-8">
           We're happy to see you! 👋
         </div>
-        <p className="text-[48px] font-bold font-jakarta leading-tight">
+        <p className=" text-3xl md:text-4xl lg:text-5xl font-bold font-jakarta leading-tight">
           Your <span className="text-[#C1B49A]">Secure</span> and <br />
           Trustworthy Giving <br /> Solution.
         </p>

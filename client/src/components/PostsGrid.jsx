@@ -16,7 +16,7 @@ export function DonationGrid() {
     ];
 
     return (
-        <div className="grid grid-cols-3 gap-4 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
             {dummyData.map((data, index) => (
                 <DonationCard key={index} {...data} />
             ))}

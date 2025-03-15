@@ -37,9 +37,7 @@ graph LR
     C -->|Approved| D[Beneficiary Wallet]
     D --> E[QR-Confirmed Delivery]
     E --> F[Automatic Fund Release]
-```
-
-
+```  
 
 <br><br><br>
 
@@ -112,6 +110,78 @@ graph LR
   ```
 - **NGO Feedback**  
   feedback the NGOs that have taken the Beneficiary situation into consideration in a volunteering mission once the mission is successfully completed
+
+<br><br><br>
+
+
+
+## 🛠 Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    Volunteer->>+Backend: Initiate Donation
+    Backend->>+Blockchain: Create Smart Contract
+    Blockchain-->>-Backend: TX Hash
+    Backend->>+NGO: Notify Pending Funds
+    NGO->>+Beneficiary: Distribute Aid
+    Beneficiary->>+Blockchain: Submit QR Proof
+    Blockchain->>+Backend: Emit Completion Event
+    Backend->>+Volunteer: Update Impact Dashboard
+    Backend->>+AI: Calculate New Badges
+    AI-->>-Backend: Badge Eligibility
+    Backend->>+Blockchain: Mint Achievement NFT
+```
+
+<br><br><br>
+
+## 🛠 Software Architecture
+
+```mermaid
+graph TD
+    subgraph Frontend
+        A[Web/Mobile App] --> B[Volunteer Dashboard]
+        A --> C[NGO Portal]
+        A --> D[Beneficiary Interface]
+    end
+
+    subgraph Backend
+        E[API Gateway] --> F[Auth Service]
+        E --> G[Mission Manager]
+        E --> H[Transaction Engine]
+        E --> I[AI Integration]
+        H --> J[Payment Processor]
+        G --> K[Smart Contract Connector]
+    end
+
+    subgraph Blockchain Layer
+        K --> L[DonationTracker.sol]
+        K --> M[VerificationSystem.sol]
+        K --> N[BadgeNFT.sol]
+        L --> O[Ethereum/Polygon Nodes]
+        M --> O
+        N --> O
+    end
+
+    subgraph Data Layer
+        P[(Relational DB)] --> Q[User Profiles]
+        P --> R[Mission Data]
+        P --> S[Transaction Logs]
+        T[(IPFS)] --> U[Proofs/Media]
+        T --> V[Impact Reports]
+    end
+
+    subgraph AI Services
+        I --> W[Donor Matching Model]
+        I --> X[Impact Predictor]
+        I --> Y[Fraud Detector]
+    end
+
+    Frontend --> Backend
+    Backend --> Blockchain_Layer
+    Backend --> Data_Layer
+    Backend --> AI_Services
+    Blockchain_Layer --> Data_Layer
+```
 
 <br><br><br>
 

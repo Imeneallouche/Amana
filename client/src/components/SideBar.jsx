@@ -52,7 +52,7 @@ export function SideBar() {
               <ArrowDown2 size="16" className={`ml-auto transition-transform ${isTransactionsOpen ? "rotate-180" : "rotate-0"}`} />
             </button>
             {isTransactionsOpen && (
-              <div className="ml-6 lg:ml-12">
+              <div className="ml-6">
                 <Sidebar.Item
                   to="/transactionsVolunteer/pending"
                   className={`${getItemClass("/transactionsVolunteer/pending")} flex items-center lg:gap-[10%] my-2`}
