@@ -48,18 +48,17 @@ const transactions = [
 
 const TransactionTableCompleted = () => {
   return (
-    <div className="pt-6 bg-white rounded-t-lg mt-6 shadow">
-      <h2 className="text-md   font-semibold  ml-5 font-jakarta mb-4">Accomplished Transactions</h2>
+    <div className="bg-white rounded-t-lg mt-6 shadow">
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-gray-100 border rounded-lg">
-          <thead className=" bg-[#CCD6D2]">
+        <table className="min-w-full bg-gray-100 border rounded-t-lg">
+          <thead className="bg-[#CCD6D2] rounded-t-lg">
             <tr>
               <th className="px-4 py-2 font-jakarta font-medium text-md text-mygreen text-left">Mission Title</th>
-              <th className="px-4 py-2 font-jakarta font-medium  text-md text-mygreen text-left">Amount</th>
-              <th className="px-4 py-2 font-jakarta font-medium  text-md text-mygreen text-left">Block ID</th>
-              <th className="px-4 py-2 font-jakarta font-medium  text-md text-mygreen text-left">Transaction Date</th>
-              <th className="px-4 py-2 font-jakarta font-medium  text-md text-mygreen text-left">Arrival Date</th>
-              <th className="px-4 py-2 font-jakarta font-medium  text-md text-mygreen text-left">Results</th>
+              <th className="px-4 py-2 font-jakarta font-medium text-md text-mygreen text-left">Amount</th>
+              <th className="px-4 py-2 font-jakarta font-medium text-md text-mygreen text-left">Block ID</th>
+              <th className="px-4 py-2 font-jakarta font-medium text-md text-mygreen text-left">Transaction Date</th>
+              <th className="px-4 py-2 font-jakarta font-medium text-md text-mygreen text-left">Arrival Date</th>
+              <th className="px-4 py-2 font-jakarta font-medium text-md text-mygreen text-left">Results</th>
             </tr>
           </thead>
           <tbody className="bg-white">
@@ -84,4 +83,6 @@ const TransactionTableCompleted = () => {
   );
 };
 
+
 export default TransactionTableCompleted;
+

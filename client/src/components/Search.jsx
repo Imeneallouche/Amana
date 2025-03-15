@@ -11,7 +11,7 @@ export default function SearchFilters() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 items-center justify-between p-6 rounded-xl ">
+    <div className="flex flex-col md:flex-row gap-6 items-center justify-between p-2 rounded-xl ">
       {/* Search Bar */}
       <div className="flex items-center bg-[#E5E5E5] px-4 py-3 rounded-lg w-full md:w-96 ">
         <SearchNormal1 size="20" color="#14532D" />

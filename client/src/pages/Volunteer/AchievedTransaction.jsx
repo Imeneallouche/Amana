@@ -16,7 +16,8 @@ return (
     <div className="flex-1 flex flex-col overflow-auto">
       <Header/>
       <div className="mx-24">
-      <h1 className="text-3xl font-jakarta text-myblack mb-2 font-semibold ">Achievements</h1>
+      <h1 className="lg:text-3xl md:text-xl font-jakarta text-myblack mb-2 font-semibold ">Accomplished Transactions</h1>
+      <p className="md:text-lg sm:text-sm font-jakarta text-[#4B5563]">Track your contributions and their impact</p>
       <TransactionTableCompleted/>
       </div>
     </div>
