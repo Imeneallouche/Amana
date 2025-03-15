@@ -21,7 +21,7 @@ During Ramadan - a month of heightened generosity - **$3.2B+** is donated global
 
 ## 🚀 The AMANA Solution
 **End-to-End Blockchain Transparency** + **AI-Driven Impact Optimization**  
-_"From Donor to Final Beneficiary - Every Dirham Accounted For"_
+_"From Donor to Final Beneficiary - Every Dinar Accounted For"_
 
 ### 🔥 Core Innovation: Dual-Layer Tracking
 1. **NGO-Level Tracking**  
@@ -53,6 +53,9 @@ graph LR
 | **Beneficiaries** | Anonymous needs posting, Aid receipt confirmation | IPFS media proofs |
 
 ### 2. Revolutionary Functionalities
+
+<br>
+
 #### 🎮 Volunteer Experience
 - **AI-Powered Dashboard**  
   ```python
@@ -61,6 +64,9 @@ graph LR
       return max(available_missions, 
                 key=lambda m: cosine_similarity(profile.values, m.values))
   ```
+- **Personalized Profile for Gamification Encouragement**
+  Earn Badges, view statistics, generate personal reports on your annual helps, generate videos of impact you made
+  
 - **Live Transaction Map**  
   Track donations through blockchain states:  
   `Initialized → Validated → In Escrow → Delivered → Confirmed`
@@ -70,6 +76,8 @@ graph LR
   ```bash
   npx hardhat testnetsim --network sepolia --failure delivery
   ```
+
+<br>
 
 #### 🏛 NGO Tools
 - **Smart Mission Builder**  
@@ -81,7 +89,9 @@ graph LR
   }
   ```
 - **Beneficiary Validation Portal**  
-  Geo-tagged needs verification with AI urgency scoring
+  Geo-tagged needs verification with AI urgency scoring and Beneficiary Profile
+
+<br>
 
 #### 🧑🤝🧑 Beneficiary Empowerment
 - **Anonymous Needs Marketplace**  
@@ -93,8 +103,8 @@ graph LR
     "proofs": ["ipfs://QmXyZ..."]
   }
   ```
-- **QR-Based Aid Confirmation**  
-  Scan-to-confirm system updates blockchain and releases NGO funds
+- **NGO Feedback**  
+  feedback the NGOs that have taken the Beneficiary situation into consideration in a volunteering mission once the mission is successfully completed
 
 <br><br><br>
 
@@ -193,6 +203,9 @@ cd blockchain && npm install
 # Set up Django backend
 cd ../backend && pip install -r requirements.txt
 
+# Set up React application in the front
+cd ../client && npm start
+
 # Configure environment
 cp .env.example .env
 ```
@@ -216,10 +229,9 @@ cd ../frontend && npm start
 
 ## 🏆 Why AMANA ?
 1. **Patent-Pending Dual Tracking** - First system tracking both organizational and individual impact
-2. **Ramadan-Specific Optimization** - Iftar matching algorithms, Zakat calculators
-3. **Proven Impact** - Pilot program showed 92% donor confidence increase
-4. **Government-Ready** - Compliant with UAE Smart Donation Guidelines
-5. **Adaptability** - adapted to any country, especially Algeria, with BARIDIMOB API
+2. **Proven Impact** - Pilot program showed 92% donor confidence increase
+3. **Government-Ready** - Compliant with UAE Smart Donation Guidelines
+4. **Adaptability** - adapted to any country, especially Algeria, with BARIDIMOB API
 
 <br><br><br>
 
