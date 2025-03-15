@@ -8,6 +8,8 @@ import Achievements from './pages/Volunteer/Achievements';
 import Payment from './pages/Volunteer/Payment';
 import Simulation from './pages/Volunteer/Simulation';
 import HomePageONG from './pages/ONG/homepage';
+import Requests from './pages/ONG/Requests';
+import AchievementsONG from './pages/ONG/AchievementsONG';
 function App() {
   return (
     <div className="font-lora flex flex-col relative overflow-hidden  w-screen">
@@ -21,6 +23,8 @@ function App() {
           <Route path="/paymentVolunteer" element={<Payment />} />
           <Route path="/simulation" element={<Simulation />} />
           <Route path="/homeONG" element={<HomePageONG />} />
+          <Route path="/requests" element={<Requests/>}/>
+          <Route path="/AchievementsONG" element={<AchievementsONG/>}/>
         </Routes>
     </div>
   );

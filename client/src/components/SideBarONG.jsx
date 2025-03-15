@@ -42,7 +42,7 @@ export function SideBarONG() {
             className={`${getItemClass("/simulation")} flex items-center lg:gap-[10%] my-2`}
             icon={() => <I3DCubeScan size="20" variant="Bold" color={location.pathname === "/simulation" ? "#C1B49A" : "#96A9A2"} />}
           >
-            Simulation
+            Requests
           </Sidebar.Item>
 
           <Sidebar.Item
@@ -55,9 +55,9 @@ export function SideBarONG() {
 
 
           <Sidebar.Item
-            onClick={() => navigate("/achievementsVolunteer")}
-            className={`${getItemClass("/achievementsVolunteer")} flex items-center lg:gap-[10%] my-2`}
-            icon={() => <MedalStar size="20" variant="Bold" color={location.pathname === "/achievementsVolunteer" ? "#C1B49A" : "#96A9A2"} />}
+            onClick={() => navigate("/AchievementsONG")}
+            className={`${getItemClass("/AchievementsONG")} flex items-center lg:gap-[10%] my-2`}
+            icon={() => <MedalStar size="20" variant="Bold" color={location.pathname === "/AchievementsONG" ? "#C1B49A" : "#96A9A2"} />}
           >
             Achievements
           </Sidebar.Item>
