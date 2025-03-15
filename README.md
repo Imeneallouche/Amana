@@ -1,6 +1,10 @@
 <p align="center">
   <img width=30% src="https://github.com/user-attachments/assets/8e7e360d-cf8a-495a-a218-e6c4eda26db2" alt="logo"/>
 </p>
+<p align="center">
+  link to the platform : https://test3-yhy6.vercel.app/
+</p>
+
 
 <br><br><br>
 
