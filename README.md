@@ -134,6 +134,70 @@ sequenceDiagram
 
 <br><br><br>
 
+## 🛠 Data Flow Diagram
+
+
+```mermaid
+graph TD
+    subgraph External_Entities
+        A[Volunteer]
+        B[NGO]
+        C[Beneficiary]
+        D[Payment Gateway]
+    end
+
+    subgraph Frontend
+        E[Web/Mobile Interface]
+    end
+
+    subgraph Backend
+        F[API Gateway]
+        G[Auth Service]
+        H[Transaction Processor]
+        I[Smart Contract Manager]
+        J[AI Service]
+    end
+
+    subgraph Data_Stores
+        K[(PostgreSQL DB)]
+        L[(IPFS)]
+        M[Blockchain]
+    end
+
+    A -->|"1\. Donation Details"| E
+    B -->|"2\. Mission Data"| E
+    C -->|"3\. Needs/Proof"| E
+    E -->|"4\. Auth Request"| G
+    G -->|"5\. JWT Token"| E
+    E -->|"6\. Transaction Data"| H
+    H -->|"7\. Validate Payment"| D
+    D -->|"8\. Payment Status"| H
+    H -->|"9\. Initiate Smart Contract"| I
+    I -->|"10\. Deploy Contract"| M
+    M -->|"11\. TX Hash"| I
+    I -->|"12\. Store Metadata"| K
+    I -->|"13\. Anchor Proof"| L
+    H -->|"14\. Impact Data"| J
+    J -->|"15\. Fraud Analysis"| H
+    J -->|"16\. Badge Eligibility"| K
+    H -->|"17\. Update Mission Status"| K
+    K -->|"18\. User Achievements"| E
+    L -->|"19\. IPFS CIDs"| K
+    M -->|"20\. Verification Events"| I
+    I -->|"21\. Completion Proof"| B
+    B -->|"22\. Confirm Delivery"| E
+    C -->|"23\. QR Confirmation"| E
+    E -->|"24\. Submit Proof"| I
+    I -->|"25\. Update Verification"| M
+```
+
+
+
+
+<br><br><br>
+
+
+
 ## 🛠 Software Architecture
 
 ```mermaid
