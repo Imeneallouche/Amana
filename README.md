@@ -39,6 +39,8 @@ graph LR
     E --> F[Automatic Fund Release]
 ```
 
+
+
 <br><br><br>
 
 ## 🌍 Features
@@ -108,18 +110,66 @@ graph LR
 | **Storage** | IPFS, Filecoin |
 | **AI** | GPT-4 Impact Reports, Scikit-learn matching |
 
-### Database Schema Highlights
-```python
-# Blockchain-anchored transaction model
-class Transaction(models.Model):
-    tx_hash = models.CharField(max_length=66, unique=True)  # On-chain proof
-    stages = models.JSONField()  # ["Initialized", "Validated", ...]
-    beneficiary_proof = models.JSONField()  # IPFS hashes
+
+### 🔍 Database Schema - The Transparency Backbone  
+**Innovative Dual-Tracking Architecture**  
+_Designed for End-to-End Impact Verification_
+
+```mermaid
+erDiagram
+    USER ||--o{ VOLUNTEER : extends
+    USER ||--o{ NGO : extends
+    USER ||--o{ PERSON_IN_NEED : creates
+    HELP_REQUEST ||--o{ TRANSACTION : receives
+    NGO ||--o{ HELP_REQUEST : manages
+    PERSON_IN_NEED ||--o{ HELP_REQUEST : "posts/benefits"
+    TRANSACTION ||--o{ USER_ACHIEVEMENT : impacts
+    BADGE ||--o{ USER_BADGE : awarded
+
+    USER {
+        int id PK
+        string phone_number
+        string localisation
+    }
     
-# Multi-level impact tracking
-class HelpRequest(models.Model):
-    ngo = models.ForeignKey(NGO)          # First-mile tracking
-    person_in_need = models.ForeignKey(PersonInNeed)  # Last-mile tracking
+    VOLUNTEER {
+        JSON transaction_history
+    }
+    
+    NGO {
+        text description
+    }
+    
+    PERSON_IN_NEED {
+        int id PK
+        string name
+        string location
+        int associated_ngo FK
+    }
+    
+    HELP_REQUEST {
+        int id PK
+        string title
+        JSON needs_list
+        decimal required_amount
+        JSON proof_list
+        string blockchain_hash
+    }
+    
+    TRANSACTION {
+        int id PK
+        string tx_hash
+        string send_block_id
+        string validation_block_id
+        JSON beneficiary_proof
+        decimal impact_percentage
+    }
+    
+    BADGE {
+        int badge_id PK
+        string criteria
+        string ipfs_media
+    }
 ```
 
 <br><br><br>
