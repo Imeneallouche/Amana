@@ -1,6 +1,15 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import *
+from .serializers import *
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+from django.db import IntegrityError
+from django.db.models import Sum
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import User
 from .serializers import UserSerializer
 from .models import *
@@ -8,6 +17,10 @@ from .serializers import *
 from django.db.models import Q, F, ExpressionWrapper, FloatField
 from .serializers import HelpRequestSearchSerializer
 from datetime import datetime
+from rest_framework import generics
+from django.db.models import Sum, Count, F, Q
+from rest_framework.decorators import api_view
+
 @api_view(['GET', 'POST'])
 def user_list(request):
     if request.method == 'GET':
@@ -21,8 +34,24 @@ def user_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
-# list all the help request and create new ones
+@api_view(['GET'])
+def list_transactions(request):
+    transactions = Transaction.objects.all()
+    serializer = TransactionSerializer(transactions, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_transaction(request):
+    serializer = TransactionSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+""" 
+maha start
+"""
 @api_view(['GET','POST'])
 def help_request_list(request):
     if request.method=='GET':
@@ -138,7 +167,198 @@ def get_filtered_ngos(request):
         'results': serializer.data
     })        
 
+""" 
+maha end 
+"""
+@api_view(['POST'])
+def create_volunteer(request):
+    serializer = VolunteerSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def retrieve_transaction(request, pk):
+    try:
+        transaction = Transaction.objects.get(pk=pk)
+    except Transaction.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = TransactionSerializer(transaction)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def update_transaction(request, pk):
+    try:
+        transaction = Transaction.objects.get(pk=pk)
+    except Transaction.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = TransactionSerializer(transaction, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def register_user(request):
+    serializer = UserRegistrationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def login_user(request):
+    serializer = UserLoginSerializer(data=request.data)
+    if serializer.is_valid():
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def volunteer_total_missions(request, volunteer_id):
+    try:
+        # Get the volunteer
+        volunteer = Volunteer.objects.get(pk=volunteer_id)
+
+        # Count the number of transactions for this volunteer
+        total_missions = Transaction.objects.filter(donor=volunteer).count()
+
+        return Response({'volunteer_id': volunteer_id, 'total_missions': total_missions}, status=status.HTTP_200_OK)
+    except Volunteer.DoesNotExist:
+        return Response({'error': 'Volunteer not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['GET'])
+def volunteer_total_donations(request, volunteer_id):
+    try:
+        # Get the volunteer
+        volunteer = Volunteer.objects.get(pk=volunteer_id)
+
+        # Calculate the total amount donated by this volunteer
+        total_donations = Transaction.objects.filter(donor=volunteer).aggregate(Sum('amount'))['amount__sum']
+
+        if total_donations is None:
+            total_donations = 0
+
+        return Response({'volunteer_id': volunteer_id, 'total_donations': total_donations}, status=status.HTTP_200_OK)
+    except Volunteer.DoesNotExist:
+        return Response({'error': 'Volunteer not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+@api_view(['GET'])
+def is_donor_life_saver_in_health(request, volunteer_id):
+    try:
+        # Get the volunteer
+        volunteer = Volunteer.objects.get(pk=volunteer_id)
+
+        # Count the number of distinct help requests in the "Health" category associated with the volunteer's transactions
+        help_request_count = (
+            Transaction.objects
+            .filter(donor=volunteer, request__category='Health')
+            .values('request')
+            .distinct()
+            .count()
+        )
+
+        # Determine if the volunteer is a life saver in the "Health" category
+        is_life_saver = help_request_count > 5
+
+        return Response({'volunteer_id': volunteer_id, 'is_life_saver_in_health': is_life_saver}, status=status.HTTP_200_OK)
+    except Volunteer.DoesNotExist:
+        return Response({'error': 'Volunteer not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def is_donor_food_champion(request, volunteer_id):
+    try:
+        # Get the volunteer
+        volunteer = Volunteer.objects.get(pk=volunteer_id)
+
+        # Count the number of distinct help requests in the "Food" category associated with the volunteer's transactions
+        help_request_count = (
+            Transaction.objects
+            .filter(donor=volunteer, request__category='Food')
+            .values('request')
+            .distinct()
+            .count()
+        )
+
+        # Determine if the volunteer is a food champion
+        is_food_champion = help_request_count > 5
+
+        return Response({'volunteer_id': volunteer_id, 'is_food_champion': is_food_champion}, status=status.HTTP_200_OK)
+    except Volunteer.DoesNotExist:
+        return Response({'error': 'Volunteer not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def is_donor_education_advocate(request, volunteer_id):
+    try:
+        # Get the volunteer
+        volunteer = Volunteer.objects.get(pk=volunteer_id)
+
+        # Count the number of distinct help requests in the "Education" category associated with the volunteer's transactions
+        help_request_count = (
+            Transaction.objects
+            .filter(donor=volunteer, request__category='Education')
+            .values('request')
+            .distinct()
+            .count()
+        )
+
+        # Determine if the volunteer is an education advocate
+        is_education_advocate = help_request_count > 5
+
+        return Response({'volunteer_id': volunteer_id, 'is_education_advocate': is_education_advocate}, status=status.HTTP_200_OK)
+    except Volunteer.DoesNotExist:
+        return Response({'error': 'Volunteer not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def volunteer_accomplishment_images(request, volunteer_id):
+    try:
+        # Get the volunteer
+        volunteer = Volunteer.objects.get(pk=volunteer_id)
+
+        # Retrieve transactions associated with the volunteer
+        transactions = Transaction.objects.filter(donor=volunteer)
+
+        # Extract accomplishment images from the transactions
+        accomplishment_images = []
+        for transaction in transactions:
+            if transaction.accomplishment_images:
+                accomplishment_images.extend(transaction.accomplishment_images)
+
+        return Response({'volunteer_id': volunteer_id, 'accomplishment_images': accomplishment_images}, status=status.HTTP_200_OK)
+    except Volunteer.DoesNotExist:
+        return Response({'error': 'Volunteer not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+def help_requests_by_ngo(request, ngo_id, help_request_id=None):
+    try:
+        # Get the NGO
+        ngo = NGO.objects.get(pk=ngo_id)
+
+        if help_request_id is not None:
+            # Retrieve a specific help request by ID
+            try:
+                help_request = HelpRequest.objects.get(pk=help_request_id, person_in_need__associated_ngo=ngo)
+                serializer = HelpRequestSerializer(help_request)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except HelpRequest.DoesNotExist:
+                return Response({'error': 'Help request not found for this NGO'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            # Retrieve all help requests where the person in need is associated with the NGO
+            help_requests = HelpRequest.objects.filter(person_in_need__associated_ngo=ngo)
+            serializer = HelpRequestSerializer(help_requests, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+    except NGO.DoesNotExist:
+        return Response({'error': 'NGO not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+""" 
+maha start
+"""
 #Fltering les demande d'aide with title and description , et selon : category , progress_status , location , 
 
 @api_view(['GET'])
@@ -383,3 +603,139 @@ def person_in_need_detail(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
+#Pour compter le nombre de missions totales d'une ONG
+class NGOCompletedRequestsAPIView(generics.RetrieveAPIView):
+    queryset = NGO.objects.all()
+    serializer_class = NGOCompletedRequestsSerializer
+    lookup_field = 'id'
+    
+    def retrieve(self, request, *args, **kwargs):
+        ngo = self.get_object()
+        
+        # Récupérer toutes les personnes dans le besoin associées à cette ONG
+        persons_in_need = PersonInNeed.objects.filter(associated_ngo=ngo)
+        
+        # Compter les demandes d'aide complétées
+        completed_requests_count = HelpRequest.objects.filter(
+            person_in_need__in=persons_in_need,
+            status='Completed'
+        ).count()
+        
+        # Ajouter le compteur aux données de l'ONG
+        data = self.get_serializer(ngo).data
+        data['completed_requests_count'] = completed_requests_count
+        
+        return Response(data)    
+
+
+
+@api_view(['GET'])
+def get_completed_help_requests_sum(request):
+    """
+    Calcule la somme des montants requis (required_amount) des demandes d'aide complétées.
+    
+    
+    Retourne  le total amount basé sur required_amount.
+    """
+    completed_requests = HelpRequest.objects.filter(status="Completed")
+    
+    # Filtre par ONG 
+    ngo_id = request.query_params.get('ngo_id', None)
+    if ngo_id:
+        try:
+            ngo_id = int(ngo_id)
+            completed_requests = completed_requests.filter(person_in_need__associated_ngo_id=ngo_id)
+        except ValueError:
+            pass
+    
+    # Filtre par catégorie
+    category = request.query_params.get('category', None)
+    if category:
+        completed_requests = completed_requests.filter(category=category)
+    
+    # Filtre par localisatio
+    location = request.query_params.get('location', None)
+    if location:
+        completed_requests = completed_requests.filter(location__icontains=location)
+    
+    # Filtre par personne dans le besoin 
+    person_id = request.query_params.get('person_id', None)
+    if person_id:
+        try:
+            person_id = int(person_id)
+            completed_requests = completed_requests.filter(person_in_need_id=person_id)
+        except ValueError:
+            pass
+    
+    result = completed_requests.aggregate(total_amount=Sum('required_amount'))
+    
+    return Response({
+        'total_amount': result['total_amount'] or 0
+    })
+
+@api_view(['GET'])
+def get_total_required_amount_for_ngo(request, ngo_id):
+    """
+    Calcule la somme totale des montants requis pour toutes les demandes d'aide
+    associées à une ONG spécifique.
+    
+    Args:
+        request: La requête HTTP
+        ngo_id: L'identifiant de l'ONG
+    """
+    try:
+        # Récupérer toutes les personnes dans le besoin associées à cette ONG
+        persons_in_need = PersonInNeed.objects.filter(associated_ngo_id=ngo_id)
+        
+        # Récupérer toutes les demandes d'aide pour ces personnes
+        help_requests = HelpRequest.objects.filter(person_in_need__in=persons_in_need)
+        
+        # Calculer la somme totale
+        total_amount = sum([request.required_amount for request in help_requests], Decimal('0.00'))
+        
+        return Response({
+            'ngo_id': ngo_id,
+            'total_required_amount': str(total_amount)
+        })
+    except NGO.DoesNotExist:
+        return Response(
+            {'error': 'ONG non trouvée'}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+@api_view(['GET'])
+def get_help_requests_count_by_status(request, ngo_id, status_filter):
+    """
+    Compte le nombre de demandes d'aide ayant un statut spécifique pour une ONG donnée.
+    
+    Args:
+        request: La requête HTTP
+        ngo_id: L'identifiant de l'ONG
+        status_filter: Le statut des demandes à compter ('Pending', 'Approved', 'Funding', 'Completed')
+    """
+    try:
+        # Vérifier si l'ONG existe
+        NGO.objects.get(id=ngo_id)
+        
+        # Récupérer toutes les personnes dans le besoin associées à cette ONG
+        persons_in_need = PersonInNeed.objects.filter(associated_ngo_id=ngo_id)
+        
+        # Compter les demandes d'aide ayant le statut spécifié
+        count = HelpRequest.objects.filter(
+            person_in_need__in=persons_in_need,
+            status=status_filter
+        ).count()
+        
+        return Response({
+            'ngo_id': ngo_id,
+            'status': status_filter,
+            'count': count
+        })
+    except NGO.DoesNotExist:
+        return Response(
+            {'error': 'ONG non trouvée'}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+"""
+maha end
+"""

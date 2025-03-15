@@ -18,7 +18,6 @@ class NGO(User):
 
 # Person in Need
 class PersonInNeed(User):
- 
     associated_ngo = models.ForeignKey(NGO, on_delete=models.SET_NULL, null=True, blank=True)
 
 # Help Request
