@@ -2,7 +2,8 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from './pages/LogIn';
 import HomePage  from './pages/Volunteer/Home';
-import Transactions from './pages/Volunteer/Transaction';
+import AchievedTransactions from './pages/Volunteer/AchievedTransaction';
+import InProgressTransactions from './pages/Volunteer/InProgressTransaction';
 function App() {
   return (
     <div className="font-lora flex flex-col relative w-screen">
@@ -10,8 +11,9 @@ function App() {
       <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/homeVolunteer" element={<HomePage />} />
-          <Route path="/transactionsVolunteer" element={<Transactions />} />
-  
+          <Route path="/transactionsVolunteerCompleted" element={<AchievedTransactions />} />
+          <Route path="/transactionsVolunteerInProgress" element={<InProgressTransactions />} />
+
         </Routes>
     </div>
   );
