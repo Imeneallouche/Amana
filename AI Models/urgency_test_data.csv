@@ -1,0 +1,101 @@
+description,category,deadline_proximity,vulnerability_score,urgency_label
+Relief efforts delayed due to severe weather conditions,Logistics,11,21,Critical
+Relief efforts delayed due to severe weather conditions,Security,18,42,Medium
+Educational program for refugees requires immediate funding,Security,29,13,High
+Urgent need for medical supplies in rural areas,Medical,24,64,Medium
+Logistical delays affecting food distribution in remote villages,Medical,15,17,High
+New school materials needed for underprivileged children,Logistics,9,9,Low
+Urgent need for medical supplies in rural areas,Security,23,41,Critical
+"Security threat detected in urban sector, immediate action required",Infrastructure,19,1,Medium
+Educational program for refugees requires immediate funding,Medical,9,2,High
+New school materials needed for underprivileged children,Logistics,3,60,Low
+Relief efforts delayed due to severe weather conditions,Security,21,48,Low
+Road repairs required due to heavy rainfall damage,Security,9,29,Critical
+"Cybersecurity breach in government systems, containment underway",Infrastructure,28,97,High
+Relief efforts delayed due to severe weather conditions,Logistics,14,10,Medium
+Logistical delays affecting food distribution in remote villages,Security,19,58,Critical
+"Bridge collapse poses serious risk, engineers dispatched",Medical,7,60,Medium
+Road repairs required due to heavy rainfall damage,Infrastructure,16,21,Low
+"Cybersecurity breach in government systems, containment underway",Logistics,16,28,Medium
+"Cybersecurity breach in government systems, containment underway",Infrastructure,28,75,Medium
+"Security threat detected in urban sector, immediate action required",Medical,1,34,Critical
+"Security threat detected in urban sector, immediate action required",Logistics,4,8,Medium
+"Healthcare crisis reported, emergency response team needed",Infrastructure,4,59,Critical
+Relief efforts delayed due to severe weather conditions,Education,7,86,Low
+Relief efforts delayed due to severe weather conditions,Medical,8,72,Critical
+Relief efforts delayed due to severe weather conditions,Medical,17,49,Critical
+"Healthcare crisis reported, emergency response team needed",Medical,5,79,High
+Urgent need for medical supplies in rural areas,Education,7,17,Medium
+"Cybersecurity breach in government systems, containment underway",Education,28,60,Low
+Road repairs required due to heavy rainfall damage,Security,20,87,Critical
+Logistical delays affecting food distribution in remote villages,Infrastructure,29,88,Low
+"Cybersecurity breach in government systems, containment underway",Security,20,45,High
+"Security threat detected in urban sector, immediate action required",Infrastructure,4,83,Medium
+New school materials needed for underprivileged children,Education,28,69,Critical
+"Bridge collapse poses serious risk, engineers dispatched",Education,6,32,Medium
+"Healthcare crisis reported, emergency response team needed",Security,7,44,High
+Educational program for refugees requires immediate funding,Logistics,18,65,High
+New school materials needed for underprivileged children,Security,5,87,Low
+Logistical delays affecting food distribution in remote villages,Infrastructure,20,8,Critical
+Relief efforts delayed due to severe weather conditions,Security,29,77,Low
+"Security threat detected in urban sector, immediate action required",Medical,3,72,High
+"Security threat detected in urban sector, immediate action required",Infrastructure,7,87,Medium
+"Security threat detected in urban sector, immediate action required",Infrastructure,27,43,Low
+Relief efforts delayed due to severe weather conditions,Logistics,28,1,Low
+Educational program for refugees requires immediate funding,Education,22,51,Medium
+"Healthcare crisis reported, emergency response team needed",Infrastructure,14,24,Low
+New school materials needed for underprivileged children,Education,7,99,Medium
+Relief efforts delayed due to severe weather conditions,Security,5,24,Critical
+Logistical delays affecting food distribution in remote villages,Medical,29,17,Medium
+"Healthcare crisis reported, emergency response team needed",Logistics,22,5,Critical
+Logistical delays affecting food distribution in remote villages,Education,5,20,Medium
+"Healthcare crisis reported, emergency response team needed",Infrastructure,23,21,High
+Educational program for refugees requires immediate funding,Education,2,58,High
+"Bridge collapse poses serious risk, engineers dispatched",Infrastructure,27,31,Critical
+Logistical delays affecting food distribution in remote villages,Education,21,11,Critical
+Relief efforts delayed due to severe weather conditions,Infrastructure,22,52,High
+"Healthcare crisis reported, emergency response team needed",Security,6,15,Critical
+"Security threat detected in urban sector, immediate action required",Infrastructure,15,83,Medium
+"Cybersecurity breach in government systems, containment underway",Infrastructure,21,7,Medium
+"Security threat detected in urban sector, immediate action required",Medical,10,28,High
+Urgent need for medical supplies in rural areas,Infrastructure,23,51,Low
+"Bridge collapse poses serious risk, engineers dispatched",Medical,26,58,Medium
+"Bridge collapse poses serious risk, engineers dispatched",Logistics,24,5,Critical
+"Security threat detected in urban sector, immediate action required",Medical,7,5,Low
+New school materials needed for underprivileged children,Security,5,94,Low
+Educational program for refugees requires immediate funding,Medical,1,96,Medium
+Logistical delays affecting food distribution in remote villages,Logistics,13,8,Medium
+Relief efforts delayed due to severe weather conditions,Security,21,64,Low
+"Bridge collapse poses serious risk, engineers dispatched",Education,26,10,Low
+"Security threat detected in urban sector, immediate action required",Education,18,38,High
+"Security threat detected in urban sector, immediate action required",Medical,13,96,Critical
+Educational program for refugees requires immediate funding,Medical,21,92,High
+Educational program for refugees requires immediate funding,Logistics,21,81,Medium
+Road repairs required due to heavy rainfall damage,Logistics,18,95,High
+Road repairs required due to heavy rainfall damage,Infrastructure,5,8,High
+New school materials needed for underprivileged children,Logistics,13,25,High
+New school materials needed for underprivileged children,Infrastructure,4,73,High
+Urgent need for medical supplies in rural areas,Security,17,66,Critical
+New school materials needed for underprivileged children,Medical,3,79,Critical
+"Healthcare crisis reported, emergency response team needed",Security,17,50,Low
+Educational program for refugees requires immediate funding,Logistics,28,67,Medium
+Relief efforts delayed due to severe weather conditions,Security,11,49,High
+"Healthcare crisis reported, emergency response team needed",Security,21,36,Low
+Logistical delays affecting food distribution in remote villages,Security,20,68,Low
+"Security threat detected in urban sector, immediate action required",Logistics,23,78,Low
+New school materials needed for underprivileged children,Security,21,41,Critical
+"Security threat detected in urban sector, immediate action required",Infrastructure,26,89,High
+"Bridge collapse poses serious risk, engineers dispatched",Logistics,4,62,High
+Urgent need for medical supplies in rural areas,Security,2,10,Medium
+"Bridge collapse poses serious risk, engineers dispatched",Logistics,20,21,High
+Urgent need for medical supplies in rural areas,Education,16,36,High
+Road repairs required due to heavy rainfall damage,Infrastructure,28,12,Low
+"Security threat detected in urban sector, immediate action required",Security,18,91,Medium
+Urgent need for medical supplies in rural areas,Education,8,2,High
+"Cybersecurity breach in government systems, containment underway",Education,3,13,Critical
+"Healthcare crisis reported, emergency response team needed",Logistics,9,53,High
+Urgent need for medical supplies in rural areas,Education,29,32,Low
+Urgent need for medical supplies in rural areas,Infrastructure,20,95,Critical
+"Healthcare crisis reported, emergency response team needed",Infrastructure,29,16,Low
+"Security threat detected in urban sector, immediate action required",Medical,6,32,High
+"Security threat detected in urban sector, immediate action required",Infrastructure,10,32,Critical
